@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexie — AI for Word and Outlook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Product Page Specific Styles */
+
+        /* Hero Section */
+        .hero-product {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px;
+            background: linear-gradient(135deg, #1A1A1A 0%, #1A1A1A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-product::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(15, 76, 129, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(30px) translateX(20px); }
+        }
+
+        .hero-product-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero-product h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #FAF9F7;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-product-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #999;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .hero-product-ctas {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-product, .btn-secondary-product {
+            padding: 16px 40px;
+            font-size: 16px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary-product {
+            background: #0F4C81;
+            color: #FAF9F7;
+        }
+
+        .btn-primary-product:hover {
+            background: #0a3557;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(15, 76, 129, 0.2);
+        }
+
+        .btn-secondary-product {
+            background: transparent;
+            color: #FAF9F7;
+            border: 1.5px solid #333;
+        }
+
+        .btn-secondary-product:hover {
+            border-color: #0F4C81;
+            background: rgba(15, 76, 129, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities Section */
+        .capabilities-section {
+            padding: 120px 40px;
+            background: #FAF9F7;
+            border-top: 1px solid #E8E8E8;
+        }
+
+        .section-header {
+            max-width: 900px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1A1A1A;
+            font-weight: 400;
+        }
+
+        .section-header p {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .capability-card {
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #E8E8E8;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .capability-card:hover {
+            border-color: #0F4C81;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0F4C81 0%, #0a3557 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #FAF9F7;
+        }
+
+        .capability-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #1A1A1A;
+            font-weight: 400;
+        }
+
+        .capability-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 120px 40px;
+            background: #1A1A1A;
+            border-top: 1px solid #333;
+        }
+
+        .comparison-header {
+            max-width: 900px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+
+        .comparison-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #FAF9F7;
+            font-weight: 400;
+        }
+
+        .comparison-header p {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #999;
+        }
+
+        .comparison-table {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #252525;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .comparison-table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid #333;
+        }
+
+        .comparison-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-table-cell {
+            padding: 24px 32px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .comparison-table-cell.header {
+            background: #1A1A1A;
+            color: #FAF9F7;
+            font-weight: 600;
+            padding: 32px;
+        }
+
+        .comparison-table-cell.feature {
+            color: #FAF9F7;
+            font-weight: 500;
+        }
+
+        .comparison-table-cell.lexie {
+            color: #5AB472;
+            font-weight: 500;
+        }
+
+        /* Feature Deep-Dive */
+        .feature-section {
+            padding: 120px 40px;
+            background: #FAF9F7;
+            border-top: 1px solid #E8E8E8;
+        }
+
+        .feature-section-header {
+            max-width: 900px;
+            margin: 0 auto 100px;
+            text-align: center;
+        }
+
+        .feature-section-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1A1A1A;
+            font-weight: 400;
+        }
+
+        .feature-block {
+            max-width: 1200px;
+            margin: 0 auto 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .feature-block.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .feature-block.reverse .feature-content {
+            order: 2;
+        }
+
+        .feature-block.reverse .feature-visual {
+            order: 1;
+        }
+
+        .feature-content h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 44px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #1A1A1A;
+            font-weight: 400;
+        }
+
+        .feature-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+            padding-left: 32px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #5AB472;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .feature-visual {
+            background: #FFFFFF;
+            border: 1px solid #E8E8E8;
+            border-radius: 12px;
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #999;
+        }
+
+        .feature-visual-placeholder {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #999;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 40px;
+            background: linear-gradient(135deg, #0F4C81 0%, #0a3557 100%);
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #FAF9F7;
+            font-weight: 400;
+        }
+
+        .cta-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-primary, .btn-cta-secondary {
+            padding: 16px 40px;
+            font-size: 16px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cta-primary {
+            background: #FAF9F7;
+            color: #0F4C81;
+        }
+
+        .btn-cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cta-secondary {
+            background: transparent;
+            color: #FAF9F7;
+            border: 1.5px solid #FAF9F7;
+        }
+
+        .btn-cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-product h1 {
+                font-size: 48px;
+            }
+
+            .hero-product-subtitle {
+                font-size: 18px;
+            }
+
+            .section-header h2 {
+                font-size: 40px;
+            }
+
+            .comparison-header h2 {
+                font-size: 40px;
+            }
+
+            .feature-section-header h2 {
+                font-size: 40px;
+            }
+
+            .feature-block {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .feature-block.reverse .feature-content,
+            .feature-block.reverse .feature-visual {
+                order: unset;
+            }
+
+            .comparison-table-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table-cell {
+                padding: 16px 20px;
+            }
+
+            .comparison-table-row:not(:last-child) .comparison-table-cell {
+                border-bottom: 1px solid #333;
+            }
+
+            .hero-product-ctas, .cta-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn-primary-product, .btn-secondary-product, .btn-cta-primary, .btn-cta-secondary {
+                width: 100%;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Utilities */
+        [data-animate="fade-up"] {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        [data-animate="stagger-up"] {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+            <div class="nav-links">
+                <a href="product.html">Product</a>
+                <a href="customers.html">Customers</a>
+                <a href="security.html">Security</a>
+                <a href="pricing.html">Pricing</a>
+            </div>
+            <div class="nav-actions">
+                <a href="pricing.html" class="btn-ghost">Try free</a>
+                <a href="index.html#cta" class="btn-primary">Book a demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-product">
+        <div class="hero-product-content" data-animate="fade-up">
+            <h1>Built where you work.</h1>
+            <p class="hero-product-subtitle">Lexie is the native AI layer for Microsoft Word and Outlook. Not another platform. Not another tab. An invisible co-pilot that lives inside your existing flow.</p>
+            <div class="hero-product-ctas">
+                <button class="btn-primary-product">Start for free</button>
+                <button class="btn-secondary-product">Watch demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lexie in Word Section -->
+    <section class="capabilities-section">
+        <div class="section-header" data-animate="fade-up">
+            <h2>Lexie in Word</h2>
+            <p>Your intelligent assistant for drafting, reviewing, and executing legal documents</p>
+        </div>
+        <div class="capabilities-grid">
+            <div class="capability-card" data-animate="stagger-up">
+                <div class="capability-icon">📝</div>
+                <h3>Draft</h3>
+                <p>AI drafts directly in tracked changes. Review suggestions in context, maintain version history effortlessly.</p>
+            </div>
+            <div class="capability-card" data-animate="stagger-up">
+                <div class="capability-icon">✓</div>
+                <h3>Review</h3>
+                <p>Fix definitions, references, and grammar automatically. Learn from your document history and style preferences.</p>
+            </div>
+            <div class="capability-card" data-animate="stagger-up">
+                <div class="capability-icon">▶</div>
+                <h3>Execute</h3>
+                <p>Hand off entire workflows to Lexie. Automate document generation, formatting, and completion at scale.</p>
+            </div>
+            <div class="capability-card" data-animate="stagger-up">
+                <div class="capability-icon">💾</div>
+                <h3>Remember</h3>
+                <p>Saves your preferences, precedents, and style guides. Every document makes Lexie smarter for your practice.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lexie in Outlook Section -->
+    <section class="capabilities-section" style="background: #1A1A1A; border-top: 1px solid #333;">
+        <div class="section-header" data-animate="fade-up">
+            <h2 style="color: #FAF9F7;">Lexie in Outlook</h2>
+            <p style="color: #999;">Intelligent email management built into your inbox</p>
+        </div>
+        <div class="capabilities-grid">
+            <div class="capability-card" style="background: #252525; border-color: #333;" data-animate="stagger-up">
+                <div class="capability-icon">📧</div>
+                <h3 style="color: #FAF9F7;">Triage</h3>
+                <p style="color: #999;">Intelligently prioritize and categorize incoming emails. Extract client details and action items automatically.</p>
+            </div>
+            <div class="capability-card" style="background: #252525; border-color: #333;" data-animate="stagger-up">
+                <div class="capability-icon">💬</div>
+                <h3 style="color: #FAF9F7;">Draft Responses</h3>
+                <p style="color: #999;">Generate contextual replies using your tone and precedents. Maintain consistency across all communications.</p>
+            </div>
+            <div class="capability-card" style="background: #252525; border-color: #333;" data-animate="stagger-up">
+                <div class="capability-icon">📅</div>
+                <h3 style="color: #FAF9F7;">Calendar Aware</h3>
+                <p style="color: #999;">Automatically reference deadlines, meetings, and timelines mentioned in emails. Never miss a date.</p>
+            </div>
+            <div class="capability-card" style="background: #252525; border-color: #333;" data-animate="stagger-up">
+                <div class="capability-icon">☑</div>
+                <h3 style="color: #FAF9F7;">Extract Actions</h3>
+                <p style="color: #999;">Pull action items from email threads and sync with your workflows. Keep everything in one place.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Lexie is Different -->
+    <section class="comparison-section">
+        <div class="comparison-header" data-animate="fade-up">
+            <h2>How Lexie is different</h2>
+            <p>Designed for lawyers. Built for Word.</p>
+        </div>
+        <div class="comparison-table" data-animate="fade-up">
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell header">Capability</div>
+                <div class="comparison-table-cell header">Other AI Tools</div>
+                <div class="comparison-table-cell header">Lexie</div>
+            </div>
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell feature">Work Environment</div>
+                <div class="comparison-table-cell">Copy-paste into browser</div>
+                <div class="comparison-table-cell lexie">Works directly in Word</div>
+            </div>
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell feature">Document Formatting</div>
+                <div class="comparison-table-cell">Loses your formatting</div>
+                <div class="comparison-table-cell lexie">Respects tracked changes</div>
+            </div>
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell feature">Context Learning</div>
+                <div class="comparison-table-cell">Generic responses</div>
+                <div class="comparison-table-cell lexie">Learns from your precedents</div>
+            </div>
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell feature">Access</div>
+                <div class="comparison-table-cell">Another login to remember</div>
+                <div class="comparison-table-cell lexie">Activates from your ribbon</div>
+            </div>
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell feature">Email Integration</div>
+                <div class="comparison-table-cell">Separate tool</div>
+                <div class="comparison-table-cell lexie">Native Outlook support</div>
+            </div>
+            <div class="comparison-table-row">
+                <div class="comparison-table-cell feature">Workflow Speed</div>
+                <div class="comparison-table-cell">Context switching required</div>
+                <div class="comparison-table-cell lexie">Zero context switching</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Deep-Dive -->
+    <section class="feature-section">
+        <div class="feature-section-header" data-animate="fade-up">
+            <h2>Purpose-built for legal</h2>
+            <p>Every feature designed for how you actually work</p>
+        </div>
+
+        <!-- Feature 1 -->
+        <div class="feature-block" data-animate="fade-up">
+            <div class="feature-content">
+                <h3>Intelligent Clause Review</h3>
+                <p>Lexie understands the structure and implications of legal clauses. It doesn't just check grammar—it reviews for consistency, risk, and compliance with your firm's standards.</p>
+                <ul class="feature-list">
+                    <li>Spot problematic language and suggest improvements</li>
+                    <li>Cross-reference clauses within and across documents</li>
+                    <li>Flag obligations and deadlines automatically</li>
+                    <li>Learn from your marked-up documents over time</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="feature-visual-placeholder">Clause Review Interface Preview</div>
+            </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-block reverse" data-animate="fade-up">
+            <div class="feature-content">
+                <h3>Precedent Bank Integration</h3>
+                <p>Connect your firm's precedent library. Lexie references your templates and approved language automatically, ensuring consistency and accelerating drafting.</p>
+                <ul class="feature-list">
+                    <li>Pull from your document library instantly</li>
+                    <li>Maintain version control and approval workflows</li>
+                    <li>Adapt precedents to new matters automatically</li>
+                    <li>Preserve firm branding and style</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="feature-visual-placeholder">Precedent Integration Preview</div>
+            </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-block" data-animate="fade-up">
+            <div class="feature-content">
+                <h3>Multi-Document Awareness</h3>
+                <p>Lexie sees across your entire deal or matter. It maintains consistency across correspondence, agreements, and schedules—catching conflicts before they become problems.</p>
+                <ul class="feature-list">
+                    <li>Compare and align terms across all documents</li>
+                    <li>Maintain defined terms consistently</li>
+                    <li>Flag conflicting provisions automatically</li>
+                    <li>Generate comprehensive document summaries</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="feature-visual-placeholder">Multi-Document View Preview</div>
+            </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-block reverse" data-animate="fade-up">
+            <div class="feature-content">
+                <h3>Saved Prompts & Memory</h3>
+                <p>Create custom commands for your practice. Lexie remembers your preferences, your tone, your firm's policies, and your client relationships.</p>
+                <ul class="feature-list">
+                    <li>Build one-click templates for recurring tasks</li>
+                    <li>Store firm-specific instructions and playbooks</li>
+                    <li>Access your practice knowledge from anywhere</li>
+                    <li>Share workflows with your team instantly</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="feature-visual-placeholder">Saved Prompts Interface Preview</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content" data-animate="fade-up">
+            <h2>Ready to transform how you work?</h2>
+            <p>Join legal teams using Lexie to work faster, smarter, and with more confidence.</p>
+            <div class="cta-buttons">
+                <button class="btn-cta-primary">Start for free</button>
+                <button class="btn-cta-secondary">Schedule a demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="product.html">Product</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="#">Changelog</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="customers.html">Customers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="security.html">Security</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Lexie. Built for lawyers who build the future.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexie — Law at the Speed of Thought</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #FAFAF8;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        button { cursor: pointer; font-family: inherit; border: none; }
+        .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* ========== UTILITY ========== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .container-lg { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .text-muted { color: #6b6b6b; }
+        .text-center { text-align: center; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+        .gap-3 { gap: 1.5rem; }
+        .gap-4 { gap: 2rem; }
+
+        /* ========== ANNOUNCEMENT BAR ========== */
+        .announcement-bar {
+            background: #0F4C81;
+            color: #fff;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+        }
+        .announcement-bar a {
+            color: #A8D4FF;
+            font-weight: 500;
+            margin-left: 0.5rem;
+            transition: opacity 0.2s;
+        }
+        .announcement-bar a:hover { opacity: 0.8; }
+        .announcement-badge {
+            background: rgba(255,255,255,0.15);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-right: 0.75rem;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 248, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 0 2rem;
+        }
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #1a1a1a;
+        }
+        .nav-logo span { color: #0F4C81; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #1a1a1a; }
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .btn-ghost {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            transition: color 0.2s;
+        }
+        .btn-ghost:hover { color: #1a1a1a; }
+        .btn-primary {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+            background: #1a1a1a;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { background: #333; transform: translateY(-1px); }
+        .btn-outline {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            background: transparent;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            border: 1.5px solid #d0d0d0;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover { border-color: #1a1a1a; transform: translateY(-1px); }
+        .btn-accent {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+            background: #0F4C81;
+            padding: 0.65rem 1.6rem;
+            border-radius: 8px;
+            transition: all 0.25s;
+        }
+        .btn-accent:hover { background: #0d3f6b; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(15,76,129,0.25); }
+        .btn-lg { padding: 0.8rem 2rem; font-size: 0.95rem; }
+
+        /* Mobile menu */
+        .nav-hamburger { display: none; background: none; padding: 0.5rem; }
+        .nav-hamburger svg { width: 24px; height: 24px; }
+
+        /* ========== HERO ========== */
+        .hero {
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(15,76,129,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #0F4C81;
+            margin-bottom: 1.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(15,76,129,0.06);
+            border-radius: 30px;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: #0F4C81;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            line-height: 1.65;
+            color: #6b6b6b;
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
+        }
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .hero-trust {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ========== LOGO BAR ========== */
+        .logo-bar {
+            padding: 2.5rem 0;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .logo-bar-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #999;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .logo-bar-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .logo-bar-item {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #bbb;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        /* ========== PRODUCT DEMO ========== */
+        .product-demo {
+            padding: 5rem 0;
+        }
+        .demo-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2.5rem;
+            justify-content: center;
+        }
+        .demo-tab {
+            padding: 0.8rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #999;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .demo-tab.active {
+            color: #1a1a1a;
+            border-bottom-color: #0F4C81;
+        }
+        .demo-tab:hover:not(.active) { color: #555; }
+        .demo-tab-label {
+            font-size: 0.85rem;
+            color: #6b6b6b;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .demo-window {
+            background: #1E1E1E;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.05) inset;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .demo-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: #2a2a2a;
+            border-bottom: 1px solid #3a3a3a;
+        }
+        .demo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .demo-dot-red { background: #ff5f57; }
+        .demo-dot-yellow { background: #febc2e; }
+        .demo-dot-green { background: #28c840; }
+        .demo-titlebar-text {
+            flex: 1;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .demo-body {
+            display: flex;
+            min-height: 420px;
+        }
+        .demo-sidebar {
+            width: 200px;
+            background: #252526;
+            border-right: 1px solid #3a3a3a;
+            padding: 1rem 0;
+        }
+        .demo-sidebar-item {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .demo-sidebar-item.active {
+            background: rgba(15,76,129,0.15);
+            color: #A8D4FF;
+        }
+        .demo-sidebar-icon { font-size: 0.9rem; }
+        .demo-main {
+            flex: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .demo-doc-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #3a3a3a;
+        }
+        .demo-doc-line {
+            font-size: 0.8rem;
+            color: #888;
+            line-height: 1.8;
+            font-family: 'Inter', monospace;
+        }
+        .demo-doc-line .highlight {
+            background: rgba(15,76,129,0.2);
+            color: #A8D4FF;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+        }
+        .demo-ai-panel {
+            width: 300px;
+            background: #1E1E1E;
+            border-left: 1px solid #3a3a3a;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .demo-ai-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #3a3a3a;
+        }
+        .demo-ai-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #0F4C81, #5AB472);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .demo-ai-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        .demo-ai-msg {
+            font-size: 0.8rem;
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+        .demo-ai-msg strong { color: #e0e0e0; }
+        .demo-ai-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: auto;
+        }
+        .demo-ai-action {
+            font-size: 0.7rem;
+            padding: 0.35rem 0.6rem;
+            background: #2a2a2a;
+            color: #A8D4FF;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .demo-ai-action:hover { background: #333; }
+        .demo-input-bar {
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+        }
+        .demo-input-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 0.8rem;
+            outline: none;
+        }
+        .demo-input-bar button {
+            background: #0F4C81;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        /* hide outlook content by default */
+        .demo-content-outlook { display: none; }
+
+        /* ========== WORKFLOW ========== */
+        .workflow {
+            padding: 6rem 0;
+            background: #fff;
+        }
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .workflow-header .eyebrow {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0F4C81;
+            margin-bottom: 1rem;
+        }
+        .workflow-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .workflow-card {
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            background: #FAFAF8;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            position: relative;
+        }
+        .workflow-card:hover {
+            border-color: rgba(15,76,129,0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+        .workflow-step {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #0F4C81;
+            margin-bottom: 0.75rem;
+        }
+        .workflow-card h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+        }
+        .workflow-card p {
+            font-size: 0.9rem;
+            color: #6b6b6b;
+            line-height: 1.6;
+        }
+        .workflow-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(15,76,129,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+        }
+
+        /* ========== TESTIMONIAL FEATURED ========== */
+        .testimonial-featured {
+            padding: 5rem 0;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .testimonial-featured-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .testimonial-featured blockquote {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+        }
+        .testimonial-featured-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .testimonial-featured-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0F4C81, #5AB472);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .testimonial-featured-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .testimonial-featured-role {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .testimonial-link {
+            color: #A8D4FF;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1.5rem;
+            transition: opacity 0.2s;
+        }
+        .testimonial-link:hover { opacity: 0.8; }
+
+        /* ========== SOCIAL PROOF QUOTES ========== */
+        .social-proof {
+            padding: 4rem 0;
+            background: #F5F4F0;
+        }
+        .social-proof-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .proof-card {
+            padding: 1.75rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .proof-card blockquote {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: #444;
+            margin-bottom: 1.25rem;
+            font-style: italic;
+        }
+        .proof-author {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .proof-role {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        /* ========== BEYOND COPILOT ========== */
+        .beyond {
+            padding: 6rem 0;
+            background: #fff;
+        }
+        .beyond-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .beyond-content .eyebrow {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0F4C81;
+            margin-bottom: 1rem;
+        }
+        .beyond-content h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+        .beyond-content p {
+            font-size: 1.05rem;
+            color: #6b6b6b;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        .beyond-content .ctas {
+            display: flex;
+            gap: 1rem;
+        }
+        .beyond-visual {
+            position: relative;
+        }
+        .beyond-visual-card {
+            background: #F5F4F0;
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .beyond-visual-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(15,76,129,0.08) 0%, transparent 70%);
+        }
+        .beyond-stat {
+            margin-bottom: 1.5rem;
+        }
+        .beyond-stat-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0F4C81;
+        }
+        .beyond-stat-label {
+            font-size: 0.9rem;
+            color: #6b6b6b;
+        }
+
+        /* ========== PILLARS ========== */
+        .pillars {
+            padding: 6rem 0;
+            background: #FAFAF8;
+        }
+        .pillars-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .pillars-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            line-height: 1.15;
+        }
+        .pillars-header h2 em { font-style: italic; color: #0F4C81; }
+        .pillars-header p {
+            font-size: 1.05rem;
+            color: #6b6b6b;
+            margin-top: 1rem;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .pillar-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+        .pillar-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+        .pillar-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        .pillar-image-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .pillar-img-affordable {
+            background: linear-gradient(135deg, #e8f0fe, #d4e5f7);
+        }
+        .pillar-img-accessible {
+            background: linear-gradient(135deg, #f0e8fe, #e5d4f7);
+        }
+        .pillar-img-personalised {
+            background: linear-gradient(135deg, #e8fef0, #d4f7e5);
+        }
+        .pillar-image-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .pillar-screenshot {
+            width: 85%;
+            height: 80%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .pillar-screenshot-bar {
+            height: 28px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #e8e8e8;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 5px;
+        }
+        .pillar-screenshot-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+        .pillar-screenshot-body {
+            flex: 1;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .pillar-screenshot-line {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+        }
+        .pillar-screenshot-line:nth-child(2) { width: 80%; }
+        .pillar-screenshot-line:nth-child(3) { width: 60%; }
+        .pillar-screenshot-line.accent { background: rgba(15,76,129,0.15); }
+        .pillar-body { padding: 1.75rem; }
+        .pillar-body h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .pillar-body p {
+            font-size: 0.9rem;
+            color: #6b6b6b;
+            line-height: 1.6;
+        }
+
+        /* ========== SECURITY ========== */
+        .security {
+            padding: 6rem 0;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .security-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .security-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            line-height: 1.15;
+        }
+        .security-header p {
+            font-size: 1.05rem;
+            color: #888;
+            margin-top: 1rem;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+        .security-card {
+            padding: 1.75rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .security-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.12);
+        }
+        .security-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .security-card p {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.6;
+        }
+        .security-card-icon {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+        .security-quote {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .security-quote blockquote {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+        .security-quote-author {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .security-quote-role {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* ========== PRICING ========== */
+        .pricing {
+            padding: 6rem 0;
+            background: #fff;
+        }
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .pricing-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            line-height: 1.15;
+        }
+        .pricing-header h2 em { font-style: italic; color: #0F4C81; }
+        .pricing-header p {
+            font-size: 1.05rem;
+            color: #6b6b6b;
+            margin-top: 1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        .pricing-card {
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 16px;
+            background: #FAFAF8;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .pricing-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+        .pricing-card.featured {
+            border-color: #0F4C81;
+            box-shadow: 0 8px 30px rgba(15,76,129,0.12);
+        }
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0F4C81;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+        .pricing-tier {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+        .pricing-price {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+        .pricing-price span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #999;
+        }
+        .pricing-desc {
+            font-size: 0.85rem;
+            color: #6b6b6b;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-features li {
+            font-size: 0.85rem;
+            color: #555;
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .pricing-features li::before {
+            content: '✓';
+            color: #5AB472;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        .pricing-cta {
+            width: 100%;
+            padding: 0.7rem;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .pricing-cta-primary {
+            background: #0F4C81;
+            color: #fff;
+        }
+        .pricing-cta-primary:hover { background: #0d3f6b; }
+        .pricing-cta-outline {
+            background: transparent;
+            color: #1a1a1a;
+            border: 1.5px solid #d0d0d0;
+        }
+        .pricing-cta-outline:hover { border-color: #1a1a1a; }
+
+        /* ========== CTA SECTION ========== */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #0F4C81 0%, #0d3f6b 100%);
+            color: #fff;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .cta-section p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.75);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        .cta-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .cta-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .cta-form input, .cta-form select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .cta-form input::placeholder { color: rgba(255,255,255,0.5); }
+        .cta-form input:focus, .cta-form select:focus { border-color: rgba(255,255,255,0.5); }
+        .cta-form select { appearance: none; color: rgba(255,255,255,0.5); }
+        .cta-form select option { background: #0F4C81; color: #fff; }
+        .cta-form-submit {
+            width: 100%;
+            padding: 0.8rem;
+            background: #fff;
+            color: #0F4C81;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.75rem;
+        }
+        .cta-form-submit:hover { background: #f0f0f0; transform: translateY(-1px); }
+        .cta-form-note {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 1rem;
+        }
+        .cta-form-note a { color: rgba(255,255,255,0.7); text-decoration: underline; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 4rem 0 2rem;
+            background: #111;
+            color: #888;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .footer-brand .nav-logo {
+            color: #fff;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .footer-brand p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: #A8D4FF; }
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+        .footer-bottom a { margin-left: 1.5rem; transition: color 0.2s; }
+        .footer-bottom a:hover { color: #A8D4FF; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .workflow-grid { grid-template-columns: repeat(2, 1fr); }
+            .beyond-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-hamburger { display: block; }
+            .hero { padding: 4rem 1.5rem 3rem; }
+            .hero-ctas { flex-direction: column; }
+            .workflow-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .social-proof-grid { grid-template-columns: 1fr; }
+            .security-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+            .demo-body { flex-direction: column; }
+            .demo-sidebar { display: none; }
+            .demo-ai-panel { width: 100%; border-left: none; border-top: 1px solid #3a3a3a; }
+            .cta-form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+    <span class="announcement-badge">New</span>
+    Announcing a new partnership
+    <a href="#">Read more →</a>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">LEXIE<span>.</span></a>
+        <div class="nav-links">
+            <a href="#product">Product</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#customers">Customers</a>
+            <a href="#security">Security</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#blog">Blog</a>
+        </div>
+        <div class="nav-actions">
+            <button class="btn-ghost">Try Lexie</button>
+            <button class="btn-accent" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Book a Demo</button>
+        </div>
+        <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-eyebrow fade-up">The native AI layer for Microsoft Office</div>
+        <h1 class="fade-up">Law at the <em>speed</em> of thought</h1>
+        <p class="hero-subtitle fade-up">Lexie is the native AI layer for Word and Outlook that helps you draft, review, and execute within your flow.</p>
+        <div class="hero-ctas fade-up">
+            <button class="btn-accent btn-lg">Try Lexie Free</button>
+            <button class="btn-outline btn-lg">Book a Demo</button>
+        </div>
+        <p class="hero-trust fade-up">Trusted every day by Partners and Principals that do world-class work.</p>
+    </div>
+</section>
+
+<!-- LOGO BAR -->
+<div class="logo-bar fade-up">
+    <div class="container">
+        <p class="logo-bar-label">Trusted by leading firms</p>
+        <div class="logo-bar-grid">
+            <span class="logo-bar-item">AMICA LAW</span>
+            <span class="logo-bar-item">BOMBAY CAPITAL</span>
+            <span class="logo-bar-item">MERIDIAN PARTNERS</span>
+            <span class="logo-bar-item">ATLAS LEGAL</span>
+            <span class="logo-bar-item">STERLING & CO</span>
+        </div>
+    </div>
+</div>
+
+<!-- PRODUCT DEMO -->
+<section class="product-demo" id="product">
+    <div class="container">
+        <div class="demo-tabs">
+            <button class="demo-tab active" data-tab="word">Lexie in <strong>Word</strong></button>
+            <button class="demo-tab" data-tab="outlook">Lexie in <strong>Outlook</strong></button>
+        </div>
+        <p class="demo-tab-label">Your work is in Word, your AI should be too.</p>
+
+        <!-- Word Demo -->
+        <div class="demo-window fade-up">
+            <div class="demo-titlebar">
+                <span class="demo-dot demo-dot-red"></span>
+                <span class="demo-dot demo-dot-yellow"></span>
+                <span class="demo-dot demo-dot-green"></span>
+                <span class="demo-titlebar-text demo-content-word">Service Agreement — Draft v2.docx</span>
+                <span class="demo-titlebar-text demo-content-outlook" style="display:none;">Outlook — Insurance Claim Response</span>
+            </div>
+            <div class="demo-body">
+                <div class="demo-sidebar">
+                    <div class="demo-sidebar-item active">
+                        <span class="demo-sidebar-icon">📄</span> Service Agreement
+                    </div>
+                    <div class="demo-sidebar-item">
+                        <span class="demo-sidebar-icon">📄</span> NDA Template
+                    </div>
+                    <div class="demo-sidebar-item">
+                        <span class="demo-sidebar-icon">📄</span> Client Brief
+                    </div>
+                    <div class="demo-sidebar-item">
+                        <span class="demo-sidebar-icon">📋</span> Precedent Bank
+                    </div>
+                </div>
+                <div class="demo-main">
+                    <div class="demo-content-word">
+                        <div class="demo-doc-title">Service Agreement — Acme Corp & Partner Ltd</div>
+                        <div class="demo-doc-line">1. <strong style="color:#e0e0e0">DEFINITIONS AND INTERPRETATION</strong></div>
+                        <div class="demo-doc-line" style="margin-top:0.5rem">1.1 In this Agreement, unless the context otherwise requires:</div>
+                        <div class="demo-doc-line" style="margin-top:0.3rem">&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">"Confidential Information"</span> means all information disclosed by either party...</div>
+                        <div class="demo-doc-line" style="margin-top:0.3rem">&nbsp;&nbsp;&nbsp;&nbsp;"Services" means the legal advisory services described in Schedule 1;</div>
+                        <div class="demo-doc-line" style="margin-top:1rem">2. <strong style="color:#e0e0e0">TERM AND TERMINATION</strong></div>
+                        <div class="demo-doc-line" style="margin-top:0.5rem">2.1 This Agreement shall commence on the <span class="highlight">Effective Date</span> and shall</div>
+                        <div class="demo-doc-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue for a period of <span class="highlight">twelve (12) months</span> unless terminated earlier.</div>
+                    </div>
+                    <div class="demo-content-outlook" style="display:none;">
+                        <div class="demo-doc-title">RE: Insurance Claim — Policy #IPC-2024-0847</div>
+                        <div class="demo-doc-line"><strong style="color:#e0e0e0">From:</strong> claims@bombaycapital.com</div>
+                        <div class="demo-doc-line"><strong style="color:#e0e0e0">To:</strong> legal@partnerltd.com</div>
+                        <div class="demo-doc-line" style="margin-top:1rem">Dear Legal Team,</div>
+                        <div class="demo-doc-line" style="margin-top:0.5rem">We are writing regarding the outstanding insurance claim under the</div>
+                        <div class="demo-doc-line">above-referenced policy. Our client maintains that the <span class="highlight">force majeure</span></div>
+                        <div class="demo-doc-line">clause applies to the circumstances described in our initial filing...</div>
+                    </div>
+                </div>
+                <div class="demo-ai-panel">
+                    <div class="demo-ai-header">
+                        <div class="demo-ai-avatar">L</div>
+                        <span class="demo-ai-name">Lexie</span>
+                    </div>
+                    <div class="demo-ai-msg demo-content-word">
+                        <strong>Clause Review:</strong> The confidentiality definition in 1.1 is broad. Consider adding carve-outs for publicly available information and independently developed materials to align with market standard.
+                    </div>
+                    <div class="demo-ai-msg demo-content-word">
+                        I've also flagged that the term in 2.1 lacks an automatic renewal clause — would you like me to draft one based on your precedent bank?
+                    </div>
+                    <div class="demo-ai-msg demo-content-outlook" style="display:none;">
+                        <strong>Email Analysis:</strong> The force majeure argument appears weak given recent case law. I've found 3 relevant precedents in your jurisdiction that may strengthen the counter-position.
+                    </div>
+                    <div class="demo-ai-msg demo-content-outlook" style="display:none;">
+                        Would you like me to draft a response referencing these precedents and our client's policy terms?
+                    </div>
+                    <div class="demo-ai-actions">
+                        <button class="demo-ai-action">Draft clause</button>
+                        <button class="demo-ai-action">Review full doc</button>
+                        <button class="demo-ai-action">Check precedents</button>
+                        <button class="demo-ai-action">Redline changes</button>
+                    </div>
+                    <div class="demo-input-bar">
+                        <input type="text" placeholder="Ask Lexie anything..." disabled>
+                        <button>↑</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="workflow" id="solutions">
+    <div class="container">
+        <div class="workflow-header fade-up">
+            <div class="eyebrow">How it works</div>
+            <h2>Four steps. <br>One seamless flow.</h2>
+        </div>
+        <div class="workflow-grid">
+            <div class="workflow-card fade-up">
+                <div class="workflow-icon">✏️</div>
+                <div class="workflow-step">Step 1</div>
+                <h3>Draft</h3>
+                <p>Draft at the speed of thought, with AI executing directly in tracked changes and maintaining your grammar with the click of a button.</p>
+            </div>
+            <div class="workflow-card fade-up">
+                <div class="workflow-icon">🔍</div>
+                <div class="workflow-step">Step 2</div>
+                <h3>Review</h3>
+                <p>Fix broken definitions, references and grammar with the click of a button. Surface risks and inconsistencies instantly.</p>
+            </div>
+            <div class="workflow-card fade-up">
+                <div class="workflow-icon">⚡</div>
+                <div class="workflow-step">Step 3</div>
+                <h3>Execute</h3>
+                <p>Hand off entire workflows to Lexie while you focus on delivering insights. Automate repetitive tasks across documents.</p>
+            </div>
+            <div class="workflow-card fade-up">
+                <div class="workflow-icon">🧠</div>
+                <div class="workflow-step">Step 4</div>
+                <h3>Remember</h3>
+                <p>Manage your files, preferences, and saved prompts to minimise repetitive work. Lexie learns your style over time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED TESTIMONIAL -->
+<section class="testimonial-featured" id="customers">
+    <div class="container">
+        <div class="testimonial-featured-inner fade-up">
+            <blockquote>"Analyst changed insurance processing from an administrative hassle into a clinical advantage. Our staff can now confidently submit compliant claims instantly — letting nurses and clinicians get back to patient care."</blockquote>
+            <div class="testimonial-featured-author">
+                <div class="testimonial-featured-avatar">TH</div>
+                <div>
+                    <div class="testimonial-featured-name">Tan Ji Hao</div>
+                    <div class="testimonial-featured-role">CEO, Bombay Capital</div>
+                </div>
+            </div>
+            <a href="#" class="testimonial-link">Read full story →</a>
+        </div>
+    </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+    <div class="container">
+        <div class="social-proof-grid">
+            <div class="proof-card fade-up">
+                <blockquote>"Analyst allows me to operate with the capabilities of a full legal department on my own. It turns legal work from a bottleneck into a strategic advantage."</blockquote>
+                <div class="proof-author">Managing Partner</div>
+                <div class="proof-role">Boutique Law Firm</div>
+            </div>
+            <div class="proof-card fade-up">
+                <blockquote>"Analyst let me do the work of a full legal team without hiring one. It saved hundreds of hours and a meaningful slice of legal spend."</blockquote>
+                <div class="proof-author">General Counsel</div>
+                <div class="proof-role">Series B Startup</div>
+            </div>
+            <div class="proof-card fade-up">
+                <blockquote>"Analyst embedded into Word and Outlook gives me the confidence to tackle complex legal materials quickly and efficiently — turning hours of tedious work into streamlined, manageable tasks."</blockquote>
+                <div class="proof-author">Senior Associate</div>
+                <div class="proof-role">International Law Firm</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BEYOND COPILOT -->
+<section class="beyond">
+    <div class="container">
+        <div class="beyond-inner fade-up">
+            <div class="beyond-content">
+                <div class="eyebrow">Why Lexie</div>
+                <h2>Beyond Copilot, Engineering with a Law Degree.</h2>
+                <p>Our team is a fusion of city lawyers, deep-tech engineers, and product designers. We go Beyond Copilot to respect tracked changes, validate definitions and summarise every redline.</p>
+                <div class="ctas">
+                    <button class="btn-accent">Try it Free</button>
+                    <button class="btn-outline">Book a Demo</button>
+                </div>
+            </div>
+            <div class="beyond-visual">
+                <div class="beyond-visual-card">
+                    <div class="beyond-stat">
+                        <div class="beyond-stat-number">14%</div>
+                        <div class="beyond-stat-label">Average time saved per document review</div>
+                    </div>
+                    <div class="beyond-stat">
+                        <div class="beyond-stat-number">3x</div>
+                        <div class="beyond-stat-label">Faster contract turnaround for teams</div>
+                    </div>
+                    <div class="beyond-stat">
+                        <div class="beyond-stat-number">100%</div>
+                        <div class="beyond-stat-label">Data stays on your device — always</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars">
+    <div class="container">
+        <div class="pillars-header fade-up">
+            <h2>The most <em>Accessible</em> Legal AI</h2>
+            <p>Straightforward pricing. No surprises. Get Wall Street precision without the Wall Street price tag.</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card fade-up">
+                <div class="pillar-image pillar-img-affordable">
+                    <div class="pillar-image-inner">
+                        <div class="pillar-screenshot">
+                            <div class="pillar-screenshot-bar">
+                                <span class="pillar-screenshot-dot"></span>
+                                <span class="pillar-screenshot-dot"></span>
+                                <span class="pillar-screenshot-dot"></span>
+                            </div>
+                            <div class="pillar-screenshot-body">
+                                <div class="pillar-screenshot-line"></div>
+                                <div class="pillar-screenshot-line accent"></div>
+                                <div class="pillar-screenshot-line"></div>
+                                <div class="pillar-screenshot-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pillar-body">
+                    <h3>The most Affordable</h3>
+                    <p>Lexie delivers enterprise-grade AI innovation, empowering you and your team at a cost that makes sense.</p>
+                </div>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-image pillar-img-accessible">
+                    <div class="pillar-image-inner">
+                        <div class="pillar-screenshot">
+                            <div class="pillar-screenshot-bar">
+                                <span class="pillar-screenshot-dot"></span>
+                                <span class="pillar-screenshot-dot"></span>
+                                <span class="pillar-screenshot-dot"></span>
+                            </div>
+                            <div class="pillar-screenshot-body">
+                                <div class="pillar-screenshot-line"></div>
+                                <div class="pillar-screenshot-line"></div>
+                                <div class="pillar-screenshot-line accent"></div>
+                                <div class="pillar-screenshot-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pillar-body">
+                    <h3>The most Accessible</h3>
+                    <p>Lexie isn't another standalone platform to juggle. You will experience zero friction and maximum flow in your daily tasks.</p>
+                </div>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-image pillar-img-personalised">
+                    <div class="pillar-image-inner">
+                        <div class="pillar-screenshot">
+                            <div class="pillar-screenshot-bar">
+                                <span class="pillar-screenshot-dot"></span>
+                                <span class="pillar-screenshot-dot"></span>
+                                <span class="pillar-screenshot-dot"></span>
+                            </div>
+                            <div class="pillar-screenshot-body">
+                                <div class="pillar-screenshot-line accent"></div>
+                                <div class="pillar-screenshot-line"></div>
+                                <div class="pillar-screenshot-line"></div>
+                                <div class="pillar-screenshot-line accent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pillar-body">
+                    <h3>The most Personalised</h3>
+                    <p>Generic AI gives generic results. Lexie is built on deep professional expertise to deliver precise, context-aware results.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECURITY -->
+<section class="security" id="security">
+    <div class="container">
+        <div class="security-header fade-up">
+            <h2>Your Client's Secrets. Kept Secret.</h2>
+            <p>Our architecture ensures that you remain in full control of your data, and we go above and beyond industry norms to deliver best-in-class security.</p>
+        </div>
+        <div class="security-grid">
+            <div class="security-card fade-up">
+                <div class="security-card-icon">🔒</div>
+                <h3>You retain full control</h3>
+                <p>All actions stored locally on your device. Your data never leaves your environment.</p>
+            </div>
+            <div class="security-card fade-up">
+                <div class="security-card-icon">🛡️</div>
+                <h3>Enterprise-Grade Certs</h3>
+                <p>Cybersecurity Essentials (CE), SOC Type 2, ISO 27001 certified and audited.</p>
+            </div>
+            <div class="security-card fade-up">
+                <div class="security-card-icon">🔐</div>
+                <h3>Private Processing</h3>
+                <p>Powered by Google's Vertex AI with strict data-exclusion guarantees.</p>
+            </div>
+            <div class="security-card fade-up">
+                <div class="security-card-icon">🏛️</div>
+                <h3>Security as a mindset</h3>
+                <p>Founded by veterans from law, insurance, and banking. Security is in our DNA.</p>
+            </div>
+        </div>
+        <div class="security-quote fade-up">
+            <blockquote>"Privacy and security are not afterthoughts, they are foundational. As a distinction graduate from AI Safety Asia, I have appreciated Lexie's architecture with a safety-first mindset for real-world AI use, focusing on privacy, security, and operational safeguards."</blockquote>
+            <div class="security-quote-author">Joe Su</div>
+            <div class="security-quote-role">Chief Technology Officer</div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+    <div class="container">
+        <div class="pricing-header fade-up">
+            <h2>Asia's Most <em>Accessible</em> Legal AI</h2>
+            <p>Straightforward pricing. No surprises. Get Wall Street precision without the Wall Street price tag, with Lexie.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card fade-up">
+                <div class="pricing-tier">Starter</div>
+                <div class="pricing-price">Free</div>
+                <div class="pricing-desc">Perfect for exploring Lexie's capabilities on your own.</div>
+                <ul class="pricing-features">
+                    <li>50 AI actions per month</li>
+                    <li>Word Add-in access</li>
+                    <li>Basic clause review</li>
+                    <li>Community support</li>
+                </ul>
+                <button class="pricing-cta pricing-cta-outline">Get Started</button>
+            </div>
+            <div class="pricing-card featured fade-up">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-tier">Professional</div>
+                <div class="pricing-price">$49 <span>/user/mo</span></div>
+                <div class="pricing-desc">For lawyers and teams who want the full Lexie experience.</div>
+                <ul class="pricing-features">
+                    <li>Unlimited AI actions</li>
+                    <li>Word + Outlook Add-in</li>
+                    <li>Precedent bank access</li>
+                    <li>Saved prompts & memory</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="pricing-cta pricing-cta-primary">Start Free Trial</button>
+            </div>
+            <div class="pricing-card fade-up">
+                <div class="pricing-tier">Enterprise</div>
+                <div class="pricing-price">Custom</div>
+                <div class="pricing-desc">For law firms and in-house teams with advanced needs.</div>
+                <ul class="pricing-features">
+                    <li>Everything in Professional</li>
+                    <li>Custom AI model tuning</li>
+                    <li>SSO & admin controls</li>
+                    <li>Dedicated account manager</li>
+                    <li>On-premise deployment</li>
+                </ul>
+                <button class="pricing-cta pricing-cta-outline">Contact Sales</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+    <div class="container">
+        <h2 class="fade-up">Ready to work smarter?</h2>
+        <p class="fade-up">Join the growing movement of legal professionals who choose tools that work for them, not the other way around.</p>
+        <div class="cta-form fade-up">
+            <div class="cta-form-row">
+                <input type="text" placeholder="Full name">
+                <select>
+                    <option value="" disabled selected>Organization type</option>
+                    <option>One-person Team</option>
+                    <option>In-house Team</option>
+                    <option>Law Firm</option>
+                </select>
+            </div>
+            <input type="email" placeholder="Work email" style="width:100%;margin-bottom:0;">
+            <button class="cta-form-submit">Schedule Demo</button>
+            <p class="cta-form-note">We'll contact you within 24 hours. Want to explore first? <a href="#">Continue browsing</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo">LEXIE<span style="color:#0F4C81">.</span></a>
+                <p>The native AI layer for legal professionals. Built where you work — in Word and Outlook.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#">Word Add-in</a>
+                <a href="#">Outlook Add-in</a>
+                <a href="#">Pricing</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <a href="#">Law Firms</a>
+                <a href="#">In-house Teams</a>
+                <a href="#">Solo Practitioners</a>
+                <a href="#">Insurance</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security</a>
+                <a href="#">DPA</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Lexie AI. All rights reserved.</span>
+            <div>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Intersection Observer for fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Demo tab switching
+    document.querySelectorAll('.demo-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const wordEls = document.querySelectorAll('.demo-content-word');
+            const outlookEls = document.querySelectorAll('.demo-content-outlook');
+
+            if (target === 'word') {
+                wordEls.forEach(el => el.style.display = '');
+                outlookEls.forEach(el => el.style.display = 'none');
+                document.querySelector('.demo-tab-label').textContent = 'Your work is in Word, your AI should be too.';
+            } else {
+                wordEls.forEach(el => el.style.display = 'none');
+                outlookEls.forEach(el => el.style.display = '');
+                document.querySelector('.demo-tab-label').textContent = 'Lexie works right inside your Outlook, so you never leave your inbox.';
+            }
+        });
+    });
+
+    // Smooth nav background on scroll
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 10) {
+            nav.style.boxShadow = '0 1px 10px rgba(0,0,0,0.05)';
+        } else {
+            nav.style.boxShadow = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

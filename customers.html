@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers — Lexie AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ========== CUSTOMERS PAGE STYLES ========== */
+
+        /* Hero */
+        .customers-hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .customers-hero::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15,76,129,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .customers-hero .section-eyebrow { margin-bottom: 1.5rem; }
+        .customers-hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.8rem, 5.5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .customers-hero h1 em { font-style: italic; color: var(--color-accent); }
+        .customers-hero .hero-desc {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Stats Strip — Harvey-inspired */
+        .stats-strip {
+            background: var(--color-dark);
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        .stat-item { position: relative; }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 10%; bottom: 10%;
+            width: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 400;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .stat-number span { color: var(--color-accent); }
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #666;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* Featured Story — Legora-inspired pull quote */
+        .featured-story {
+            padding: 7rem 0;
+            position: relative;
+        }
+        .featured-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .featured-visual {
+            background: var(--color-dark);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-visual::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-green));
+        }
+        .featured-result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .featured-result {
+            text-align: center;
+        }
+        .featured-result-number {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 0.35rem;
+        }
+        .featured-result-number span { color: #7CB8E4; font-size: 1.5rem; }
+        .featured-result-label {
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 0.04em;
+        }
+        .featured-quote-content {}
+        .featured-company-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+        }
+        .featured-pull-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 400;
+            line-height: 1.4;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+        }
+        .featured-pull-quote em { font-style: italic; color: var(--color-accent); }
+        .featured-author-block {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .featured-author-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-green));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 700; color: #fff;
+        }
+        .featured-author-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .featured-author-role {
+            font-size: 0.82rem;
+            color: var(--color-text-tertiary);
+        }
+        .featured-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            transition: gap 0.3s var(--ease-out);
+        }
+        .featured-read-more:hover { gap: 0.7rem; }
+
+        /* Stories Grid — Notion-inspired card layout */
+        .stories-section {
+            padding: 7rem 0;
+            background: var(--color-surface-2);
+        }
+        .stories-filter {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .filter-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+        .filter-btn.active {
+            background: var(--color-accent);
+            color: #fff;
+            border-color: var(--color-accent);
+        }
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .story-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            transition: all 0.4s var(--ease-out);
+            cursor: pointer;
+        }
+        .story-card:hover {
+            border-color: rgba(15,76,129,0.15);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .story-card-visual {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        .story-card-visual-bg {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .scv-1 { background: linear-gradient(135deg, #e8f0fe, #d4e5f7); }
+        .scv-2 { background: linear-gradient(135deg, #111, #1a1a1a); }
+        .scv-3 { background: linear-gradient(135deg, #f0e8fe, #e5d4f7); }
+        .scv-4 { background: linear-gradient(135deg, #e8fef0, #d4f7e5); }
+        .scv-5 { background: linear-gradient(135deg, #fef0e8, #f7e5d4); }
+        .scv-6 { background: linear-gradient(135deg, #e8f4fe, #c0ddf0); }
+        .story-card-visual .story-visual-mockup {
+            width: 75%; background: #fff;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: transform 0.4s var(--ease-out);
+        }
+        .story-card:hover .story-visual-mockup { transform: translateY(-4px) scale(1.02); }
+        .scv-2 .story-visual-mockup { background: #222; }
+        .story-mockup-bar {
+            height: 20px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #eee;
+        }
+        .scv-2 .story-mockup-bar { background: #2a2a2a; border-bottom-color: #333; }
+        .story-mockup-lines { padding: 10px; display: flex; flex-direction: column; gap: 5px; }
+        .sml { height: 4px; background: #eee; border-radius: 2px; }
+        .sml.accent { background: rgba(15,76,129,0.12); }
+        .scv-2 .sml { background: #333; }
+        .scv-2 .sml.accent { background: rgba(124,184,228,0.2); }
+
+        .story-card-type {
+            position: absolute;
+            top: 12px; left: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.9);
+            color: var(--color-text);
+            backdrop-filter: blur(8px);
+        }
+        .scv-2 .story-card-type { background: rgba(0,0,0,0.6); color: #fff; }
+
+        .story-card-body { padding: 1.5rem; }
+        .story-card-company {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 0.6rem;
+        }
+        .story-card-headline {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 400;
+            line-height: 1.35;
+            margin-bottom: 0.75rem;
+        }
+        .story-card-excerpt {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .story-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .story-card-author {
+            font-size: 0.78rem;
+            color: var(--color-text-tertiary);
+        }
+        .story-card-arrow {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s var(--ease-out);
+        }
+        .story-card:hover .story-card-arrow {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: #fff;
+        }
+
+        /* Pull Quote Section — Legora-inspired */
+        .pull-quote-section {
+            padding: 6rem 0;
+            background: var(--color-dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .pull-quote-section::before {
+            content: '"';
+            position: absolute;
+            top: -30px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 15rem;
+            font-family: var(--font-serif);
+            color: rgba(255,255,255,0.03);
+            pointer-events: none;
+        }
+        .pull-quote-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            font-weight: 400;
+            line-height: 1.5;
+            color: #fff;
+            max-width: 760px;
+            margin: 0 auto 2rem;
+        }
+        .pull-quote-text em { font-style: italic; color: #7CB8E4; }
+        .pull-quote-attribution {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .pull-quote-attribution strong { color: #999; font-weight: 500; }
+
+        /* Use Cases — editorial style */
+        .use-cases {
+            padding: 7rem 0;
+        }
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .use-case-card {
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            transition: all 0.4s var(--ease-out);
+            position: relative;
+            overflow: hidden;
+        }
+        .use-case-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-green));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--ease-out);
+        }
+        .use-case-card:hover {
+            border-color: rgba(15,76,129,0.12);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+        .use-case-card:hover::before { transform: scaleX(1); }
+        .use-case-icon-wrap {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: var(--color-accent-light);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+        }
+        .use-case-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.6rem;
+        }
+        .use-case-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Logo Garden */
+        .logo-garden {
+            padding: 5rem 0;
+            background: var(--color-surface-2);
+            border-top: 1px solid var(--color-border);
+        }
+        .logo-garden-label {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-tertiary);
+            letter-spacing: 0.04em;
+            margin-bottom: 2.5rem;
+        }
+        .logo-garden-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .logo-garden-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 1rem;
+            border-radius: var(--radius-sm);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #ccc;
+            transition: all 0.3s var(--ease-out);
+        }
+        .logo-garden-item:hover {
+            border-color: rgba(15,76,129,0.15);
+            color: var(--color-accent);
+        }
+
+        /* CTA Section */
+        .customers-cta {
+            padding: 7rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .customers-cta::before {
+            content: '';
+            position: absolute;
+            bottom: -200px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15,76,129,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .customers-cta h2 {
+            margin-bottom: 1rem;
+        }
+        .customers-cta h2 em { color: var(--color-accent); }
+        .customers-cta .cta-desc {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            max-width: 420px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-item:nth-child(2)::after { display: none; }
+            .featured-inner { grid-template-columns: 1fr; }
+            .stories-grid { grid-template-columns: repeat(2, 1fr); }
+            .use-cases-grid { grid-template-columns: 1fr; }
+            .logo-garden-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .customers-hero { padding: 6rem 0 3rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .stat-item::after { display: none; }
+            .stories-grid { grid-template-columns: 1fr; }
+            .logo-garden-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta-buttons { flex-direction: column; }
+            .cta-buttons a { width: 100%; text-align: center; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+        <div class="nav-links">
+            <a href="product.html">Product</a>
+            <a href="customers.html">Customers</a>
+            <a href="security.html">Security</a>
+            <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="nav-actions">
+            <a href="pricing.html" class="btn-ghost">Try free</a>
+            <a href="index.html#cta" class="btn-primary">Book a demo</a>
+        </div>
+        <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span>
+        </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+        <a href="product.html">Product</a>
+        <a href="customers.html">Customers</a>
+        <a href="security.html">Security</a>
+        <a href="pricing.html">Pricing</a>
+        <div class="nav-mobile-ctas">
+            <a href="pricing.html" class="btn-primary" style="width:100%;text-align:center;">Try free</a>
+            <a href="index.html#cta" class="btn-outline" style="width:100%;text-align:center;">Book a demo</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="customers-hero">
+    <div class="container">
+        <span class="section-eyebrow" data-animate="fade-up">Customer stories</span>
+        <h1 data-animate="fade-up">Built for <em>high-stakes</em> work.</h1>
+        <p class="hero-desc" data-animate="fade-up">From solo practitioners to international firms, legal professionals across Asia-Pacific trust Lexie to move faster without compromising quality.</p>
+    </div>
+</section>
+
+<!-- ============ STATS STRIP ============ -->
+<section class="stats-strip">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item" data-animate="fade-up">
+                <div class="stat-number">92<span>%</span></div>
+                <div class="stat-label">Adoption within first week</div>
+            </div>
+            <div class="stat-item" data-animate="fade-up">
+                <div class="stat-number">3.2<span>x</span></div>
+                <div class="stat-label">Faster first-draft turnaround</div>
+            </div>
+            <div class="stat-item" data-animate="fade-up">
+                <div class="stat-number">500<span>+</span></div>
+                <div class="stat-label">Legal professionals</div>
+            </div>
+            <div class="stat-item" data-animate="fade-up">
+                <div class="stat-number">14<span>%</span></div>
+                <div class="stat-label">Average time saved per document</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEATURED STORY ============ -->
+<section class="featured-story">
+    <div class="container">
+        <div class="featured-inner" data-animate="fade-up">
+            <div class="featured-visual glass-card-dark">
+                <div class="featured-result-grid">
+                    <div class="featured-result">
+                        <div class="featured-result-number">73<span>%</span></div>
+                        <div class="featured-result-label">Faster claims processing</div>
+                    </div>
+                    <div class="featured-result">
+                        <div class="featured-result-number">4.8<span>hrs</span></div>
+                        <div class="featured-result-label">Saved per lawyer per day</div>
+                    </div>
+                    <div class="featured-result">
+                        <div class="featured-result-number">95<span>%</span></div>
+                        <div class="featured-result-label">Team adoption rate</div>
+                    </div>
+                    <div class="featured-result">
+                        <div class="featured-result-number">2<span>wks</span></div>
+                        <div class="featured-result-label">Time to full deployment</div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-quote-content">
+                <div class="featured-company-label">Bombay Capital</div>
+                <p class="featured-pull-quote">"Lexie changed how we handle insurance claims entirely. What used to take our team hours now takes minutes — and the <em>accuracy improved.</em>"</p>
+                <div class="featured-author-block">
+                    <div class="featured-author-avatar">TH</div>
+                    <div>
+                        <div class="featured-author-name">Tan Ji Hao</div>
+                        <div class="featured-author-role">CEO, Bombay Capital</div>
+                    </div>
+                </div>
+                <a href="#" class="featured-read-more">
+                    Read the full story
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M9 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ STORIES GRID ============ -->
+<section class="stories-section">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">Stories</span>
+            <h2>How teams use <em>Lexie.</em></h2>
+        </div>
+
+        <div class="stories-filter" data-animate="fade-up">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Law Firms</button>
+            <button class="filter-btn">In-House</button>
+            <button class="filter-btn">Solo Practitioners</button>
+            <button class="filter-btn">Financial Services</button>
+        </div>
+
+        <div class="stories-grid">
+            <!-- Card 1 -->
+            <div class="story-card" data-animate="stagger-up">
+                <div class="story-card-visual">
+                    <div class="story-card-visual-bg scv-1">
+                        <div class="story-visual-mockup">
+                            <div class="story-mockup-bar"></div>
+                            <div class="story-mockup-lines">
+                                <div class="sml" style="width:85%"></div>
+                                <div class="sml accent" style="width:70%"></div>
+                                <div class="sml" style="width:90%"></div>
+                                <div class="sml" style="width:60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card-type">Law Firm</div>
+                </div>
+                <div class="story-card-body">
+                    <div class="story-card-company">Meridian Partners</div>
+                    <h3 class="story-card-headline">How Meridian Partners cut contract review time by 60%</h3>
+                    <p class="story-card-excerpt">A mid-sized corporate law firm used Lexie's Word add-in to streamline their due diligence workflows across a $200M acquisition.</p>
+                    <div class="story-card-meta">
+                        <span class="story-card-author">Managing Partner</span>
+                        <div class="story-card-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="story-card" data-animate="stagger-up">
+                <div class="story-card-visual">
+                    <div class="story-card-visual-bg scv-2">
+                        <div class="story-visual-mockup">
+                            <div class="story-mockup-bar"></div>
+                            <div class="story-mockup-lines">
+                                <div class="sml" style="width:75%"></div>
+                                <div class="sml accent" style="width:85%"></div>
+                                <div class="sml" style="width:65%"></div>
+                                <div class="sml accent" style="width:50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card-type">In-House</div>
+                </div>
+                <div class="story-card-body">
+                    <div class="story-card-company">Series B Startup</div>
+                    <h3 class="story-card-headline">One general counsel, hundreds of contracts — powered by Lexie</h3>
+                    <p class="story-card-excerpt">A lean in-house team used Lexie's batch processing to handle vendor agreements at scale without expanding headcount.</p>
+                    <div class="story-card-meta">
+                        <span class="story-card-author">General Counsel</span>
+                        <div class="story-card-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="story-card" data-animate="stagger-up">
+                <div class="story-card-visual">
+                    <div class="story-card-visual-bg scv-3">
+                        <div class="story-visual-mockup">
+                            <div class="story-mockup-bar"></div>
+                            <div class="story-mockup-lines">
+                                <div class="sml accent" style="width:80%"></div>
+                                <div class="sml" style="width:90%"></div>
+                                <div class="sml" style="width:55%"></div>
+                                <div class="sml accent" style="width:75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card-type">Solo</div>
+                </div>
+                <div class="story-card-body">
+                    <div class="story-card-company">Solo Practitioner</div>
+                    <h3 class="story-card-headline">"I got my evenings back" — a solo lawyer's story</h3>
+                    <p class="story-card-excerpt">A family law practitioner in Singapore used Lexie to handle routine document preparation, reclaiming hours every week.</p>
+                    <div class="story-card-meta">
+                        <span class="story-card-author">David Thompson</span>
+                        <div class="story-card-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="story-card" data-animate="stagger-up">
+                <div class="story-card-visual">
+                    <div class="story-card-visual-bg scv-4">
+                        <div class="story-visual-mockup">
+                            <div class="story-mockup-bar"></div>
+                            <div class="story-mockup-lines">
+                                <div class="sml" style="width:70%"></div>
+                                <div class="sml" style="width:85%"></div>
+                                <div class="sml accent" style="width:60%"></div>
+                                <div class="sml" style="width:80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card-type">Financial Services</div>
+                </div>
+                <div class="story-card-body">
+                    <div class="story-card-company">Atlas Financial</div>
+                    <h3 class="story-card-headline">How Atlas Financial achieved 95% first-week adoption</h3>
+                    <p class="story-card-excerpt">Because Lexie works inside Word and Outlook, Atlas's compliance team adopted it instantly — no training, no migration.</p>
+                    <div class="story-card-meta">
+                        <span class="story-card-author">Head of Legal</span>
+                        <div class="story-card-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="story-card" data-animate="stagger-up">
+                <div class="story-card-visual">
+                    <div class="story-card-visual-bg scv-5">
+                        <div class="story-visual-mockup">
+                            <div class="story-mockup-bar"></div>
+                            <div class="story-mockup-lines">
+                                <div class="sml accent" style="width:90%"></div>
+                                <div class="sml" style="width:65%"></div>
+                                <div class="sml" style="width:80%"></div>
+                                <div class="sml accent" style="width:55%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card-type">Law Firm</div>
+                </div>
+                <div class="story-card-body">
+                    <div class="story-card-company">Sterling & Co</div>
+                    <h3 class="story-card-headline">Sterling & Co's path from manual redlines to automated review</h3>
+                    <p class="story-card-excerpt">An insurance litigation team used Lexie to automate clause review across 500+ policy documents per quarter.</p>
+                    <div class="story-card-meta">
+                        <span class="story-card-author">Senior Associate</span>
+                        <div class="story-card-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="story-card" data-animate="stagger-up">
+                <div class="story-card-visual">
+                    <div class="story-card-visual-bg scv-6">
+                        <div class="story-visual-mockup">
+                            <div class="story-mockup-bar"></div>
+                            <div class="story-mockup-lines">
+                                <div class="sml" style="width:80%"></div>
+                                <div class="sml accent" style="width:75%"></div>
+                                <div class="sml" style="width:90%"></div>
+                                <div class="sml" style="width:50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card-type">In-House</div>
+                </div>
+                <div class="story-card-body">
+                    <div class="story-card-company">Amica Law</div>
+                    <h3 class="story-card-headline">How Amica scaled their Outlook triage from 2 hours to 15 minutes</h3>
+                    <p class="story-card-excerpt">Lexie's email intelligence helped Amica's in-house team prioritise, summarise, and respond to legal queries at scale.</p>
+                    <div class="story-card-meta">
+                        <span class="story-card-author">Legal Operations Lead</span>
+                        <div class="story-card-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PULL QUOTE ============ -->
+<section class="pull-quote-section">
+    <div class="container" data-animate="fade-up">
+        <p class="pull-quote-text">"The fact that it lives inside Word changed everything. My team adopted it <em>instantly</em> — zero training, zero friction. Just better work, from day one."</p>
+        <div class="pull-quote-attribution">
+            <strong>Lisa Wong</strong> · Head of Legal, Financial Services
+        </div>
+    </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section class="use-cases">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">Use cases</span>
+            <h2>Built for every kind of <em>legal team.</em></h2>
+        </div>
+        <div class="use-cases-grid">
+            <div class="use-case-card" data-animate="stagger-up">
+                <div class="use-case-icon-wrap">⚖️</div>
+                <h3>Law Firms</h3>
+                <p>Scale your team's capacity without expanding headcount. Lexie handles drafting, document review, and clause analysis across every practice area — from M&A to litigation.</p>
+            </div>
+            <div class="use-case-card" data-animate="stagger-up">
+                <div class="use-case-icon-wrap">🏢</div>
+                <h3>In-House Teams</h3>
+                <p>Empower lean legal departments to handle enterprise-scale contract volumes. Lexie brings firepower to every agreement without the outside counsel fees.</p>
+            </div>
+            <div class="use-case-card" data-animate="stagger-up">
+                <div class="use-case-icon-wrap">👤</div>
+                <h3>Solo Practitioners</h3>
+                <p>Give yourself the support of a full legal team. Work smarter, not longer, with AI that understands your practice areas and remembers your preferences.</p>
+            </div>
+            <div class="use-case-card" data-animate="stagger-up">
+                <div class="use-case-icon-wrap">🛡️</div>
+                <h3>Insurance & Financial Services</h3>
+                <p>Accelerate claims processing and compliance document handling. Ensure accuracy at scale with Lexie's specialised capabilities and policy-aware intelligence.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ LOGO GARDEN ============ -->
+<section class="logo-garden">
+    <div class="container">
+        <p class="logo-garden-label" data-animate="fade-up">Trusted by leading firms across Asia-Pacific</p>
+        <div class="logo-garden-grid" data-animate="fade-up">
+            <div class="logo-garden-item">Amica Law</div>
+            <div class="logo-garden-item">Bombay Capital</div>
+            <div class="logo-garden-item">Meridian</div>
+            <div class="logo-garden-item">Atlas Legal</div>
+            <div class="logo-garden-item">Sterling & Co</div>
+            <div class="logo-garden-item">Apex Partners</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="customers-cta">
+    <div class="container" data-animate="fade-up">
+        <h2>Join them.<br><em>Start today.</em></h2>
+        <p class="cta-desc">See why the fastest-growing legal teams in Asia-Pacific chose Lexie.</p>
+        <div class="cta-buttons">
+            <a href="pricing.html" class="btn-primary btn-lg">
+                Start for free
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M9 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="index.html#cta" class="btn-outline btn-lg">Book a demo</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+                <p>The native AI layer for legal professionals.<br>Built where you work.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="product.html">Word Add-in</a>
+                    <a href="product.html">Outlook Add-in</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="customers.html">Customers</a>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="security.html">Security</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">DPA</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Lexie AI. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

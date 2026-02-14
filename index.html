@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexie — Law at the Speed of Thought</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-logo">LEXIE<span>.</span></div>
+        <div class="preloader-bar"><div class="preloader-fill"></div></div>
+    </div>
+</div>
+
+<!-- ============ CURSOR FOLLOWER ============ -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ============ ANNOUNCEMENT ============ -->
+<div class="announcement">
+    <div class="announcement-inner">
+        <span class="announcement-badge">New</span>
+        <span>Lexie now supports Outlook calendar triage and smart scheduling</span>
+        <a href="#">Learn more <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+</div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+        <div class="nav-links">
+            <a href="product.html">Product</a>
+            <a href="customers.html">Customers</a>
+            <a href="security.html">Security</a>
+            <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="nav-actions">
+            <a href="pricing.html" class="btn-ghost">Try free</a>
+            <a href="#cta" class="btn-primary">Book a demo</a>
+        </div>
+        <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span>
+        </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+        <a href="product.html">Product</a>
+        <a href="customers.html">Customers</a>
+        <a href="security.html">Security</a>
+        <a href="pricing.html">Pricing</a>
+        <div class="nav-mobile-ctas">
+            <a href="pricing.html" class="btn-primary" style="width:100%;text-align:center;">Try free</a>
+            <a href="#cta" class="btn-outline" style="width:100%;text-align:center;">Book a demo</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+    <div class="hero-bg">
+        <div class="hero-gradient-orb hero-orb-1"></div>
+        <div class="hero-gradient-orb hero-orb-2"></div>
+        <div class="liquid-blob liquid-blob-1"></div>
+        <div class="liquid-blob liquid-blob-2"></div>
+        <div class="liquid-blob liquid-blob-3"></div>
+        <div class="hero-grid-lines"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-eyebrow" data-animate="fade-up">
+                <div class="hero-eyebrow-dot"></div>
+                The native AI layer for Microsoft Office
+            </div>
+            <h1 data-animate="hero-headline">
+                <span class="hero-line">Law at the</span>
+                <span class="hero-line"><em>speed</em> of thought.</span>
+            </h1>
+            <p class="hero-subtitle" data-animate="fade-up" data-delay="0.4">
+                Lexie lives inside Word and Outlook — drafting, reviewing, and
+                executing alongside you. No tab-switching. No copy-paste.
+                Just flow.
+            </p>
+            <div class="hero-ctas" data-animate="fade-up" data-delay="0.6">
+                <a href="pricing.html" class="btn-primary btn-lg">
+                    Start for free
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M9 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="#cta" class="btn-outline btn-lg">Book a demo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT WINDOW -->
+    <div class="hero-product" data-animate="product-reveal">
+        <div class="container-lg">
+            <div class="product-window">
+                <div class="product-titlebar">
+                    <div class="product-dots">
+                        <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+                    </div>
+                    <div class="product-tabs">
+                        <button class="product-tab active" data-tab="word">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 5h6M5 8h6M5 11h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            Word
+                        </button>
+                        <button class="product-tab" data-tab="outlook">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5l7 4 7-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            Outlook
+                        </button>
+                    </div>
+                    <div class="product-titlebar-spacer"></div>
+                </div>
+                <div class="product-body">
+                    <!-- SIDEBAR -->
+                    <div class="product-sidebar">
+                        <div class="product-sidebar-section">
+                            <div class="product-sidebar-label">Documents</div>
+                            <div class="product-sidebar-item active">
+                                <span class="sidebar-icon">📄</span> Service Agreement
+                            </div>
+                            <div class="product-sidebar-item">
+                                <span class="sidebar-icon">📄</span> NDA — Acme Corp
+                            </div>
+                            <div class="product-sidebar-item">
+                                <span class="sidebar-icon">📋</span> Client Brief
+                            </div>
+                        </div>
+                        <div class="product-sidebar-section">
+                            <div class="product-sidebar-label">Precedents</div>
+                            <div class="product-sidebar-item">
+                                <span class="sidebar-icon">📚</span> Clause Library
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOCUMENT AREA -->
+                    <div class="product-document" id="productDocument">
+                        <!-- WORD CONTENT -->
+                        <div class="doc-content" id="docWord">
+                            <div class="doc-toolbar">
+                                <span class="doc-toolbar-item active">Normal</span>
+                                <span class="doc-toolbar-sep">|</span>
+                                <span class="doc-toolbar-item">B</span>
+                                <span class="doc-toolbar-item">I</span>
+                                <span class="doc-toolbar-item">U</span>
+                            </div>
+                            <div class="doc-title-line">SERVICE AGREEMENT</div>
+                            <div class="doc-meta">Between Acme Corporation and Partner Ltd · Draft v2</div>
+                            <div class="doc-section">
+                                <div class="doc-heading">1. DEFINITIONS AND INTERPRETATION</div>
+                                <div class="doc-paragraph">
+                                    1.1 In this Agreement, unless the context otherwise requires:
+                                </div>
+                                <div class="doc-paragraph doc-indent">
+                                    <span class="doc-highlight">"Confidential Information"</span> means all information
+                                    disclosed by either party to the other, whether orally, in writing,
+                                    or by any other means, that is designated as confidential.
+                                </div>
+                                <div class="doc-paragraph doc-indent">
+                                    "Services" means the legal advisory services described in
+                                    Schedule 1 and any additional services agreed in writing.
+                                </div>
+                            </div>
+                            <div class="doc-section">
+                                <div class="doc-heading">2. TERM AND TERMINATION</div>
+                                <div class="doc-paragraph">
+                                    2.1 This Agreement shall commence on the <span class="doc-highlight">Effective Date</span>
+                                    and continue for <span class="doc-highlight">twelve (12) months</span> unless terminated earlier
+                                    in accordance with this clause.
+                                </div>
+                            </div>
+                            <!-- INLINE SUGGESTION -->
+                            <div class="doc-ai-inline" id="aiInlineSuggestion">
+                                <div class="doc-ai-inline-bar"></div>
+                                <div class="doc-ai-inline-content">
+                                    <div class="doc-ai-inline-icon">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#0F4C81" stroke-width="1.5"/><path d="M7 4v3l2 1.5" stroke="#0F4C81" stroke-width="1.5" stroke-linecap="round"/></svg>
+                                    </div>
+                                    <div>
+                                        <strong>Lexie</strong> — Consider adding an automatic renewal clause.
+                                        87% of similar agreements in your precedent bank include one.
+                                    </div>
+                                </div>
+                                <div class="doc-ai-inline-actions">
+                                    <button class="doc-ai-btn-accept">Insert clause</button>
+                                    <button class="doc-ai-btn-dismiss">Dismiss</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- OUTLOOK CONTENT -->
+                        <div class="doc-content" id="docOutlook" style="display:none">
+                            <div class="doc-toolbar">
+                                <span class="doc-toolbar-item">Reply</span>
+                                <span class="doc-toolbar-item">Forward</span>
+                                <span class="doc-toolbar-sep">|</span>
+                                <span class="doc-toolbar-item">Archive</span>
+                            </div>
+                            <div class="doc-email-header">
+                                <div class="doc-email-subject">RE: Insurance Claim — Policy #IPC-2024-0847</div>
+                                <div class="doc-email-meta">
+                                    <strong>From:</strong> claims@bombaycapital.com<br>
+                                    <strong>To:</strong> legal@partnerltd.com<br>
+                                    <strong>Date:</strong> 12 Feb 2026, 09:41 AM
+                                </div>
+                            </div>
+                            <div class="doc-paragraph" style="margin-top:1rem;">
+                                Dear Legal Team,
+                            </div>
+                            <div class="doc-paragraph">
+                                We are writing regarding the outstanding insurance claim under the
+                                above-referenced policy. Our client maintains that the <span class="doc-highlight">force majeure</span>
+                                clause applies to the circumstances described in our initial filing.
+                            </div>
+                            <div class="doc-paragraph">
+                                Please provide your assessment of the claim's validity and the
+                                recommended course of action by end of business Friday.
+                            </div>
+                            <div class="doc-ai-inline" style="animation-delay: 0.5s;">
+                                <div class="doc-ai-inline-bar"></div>
+                                <div class="doc-ai-inline-content">
+                                    <div class="doc-ai-inline-icon">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#0F4C81" stroke-width="1.5"/><path d="M7 4v3l2 1.5" stroke="#0F4C81" stroke-width="1.5" stroke-linecap="round"/></svg>
+                                    </div>
+                                    <div>
+                                        <strong>Lexie</strong> — I found 3 precedents in your jurisdiction that weaken the force majeure argument. Draft a response?
+                                    </div>
+                                </div>
+                                <div class="doc-ai-inline-actions">
+                                    <button class="doc-ai-btn-accept">Draft response</button>
+                                    <button class="doc-ai-btn-dismiss">Show precedents</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI PANEL -->
+                    <div class="product-ai-panel">
+                        <div class="ai-panel-header">
+                            <div class="ai-avatar">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5L8 1Z" fill="url(#lexieGrad)"/><defs><linearGradient id="lexieGrad" x1="2" y1="1" x2="14" y2="15"><stop stop-color="#0F4C81"/><stop offset="1" stop-color="#5AB472"/></linearGradient></defs></svg>
+                            </div>
+                            <span class="ai-panel-title">Lexie</span>
+                            <span class="ai-panel-status">Active</span>
+                        </div>
+                        <div class="ai-panel-messages">
+                            <div class="ai-msg ai-msg-assistant">
+                                <div class="ai-msg-label">Lexie</div>
+                                <div class="ai-msg-text">I've reviewed the full document. Here's what I found:</div>
+                            </div>
+                            <div class="ai-msg ai-msg-assistant">
+                                <div class="ai-msg-card">
+                                    <div class="ai-msg-card-title">
+                                        <span class="ai-msg-card-icon">⚠️</span> Clause Review
+                                    </div>
+                                    <div class="ai-msg-card-text">
+                                        The confidentiality definition in §1.1 is unusually broad.
+                                        Consider adding carve-outs for publicly available information.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ai-msg ai-msg-assistant">
+                                <div class="ai-msg-card">
+                                    <div class="ai-msg-card-title">
+                                        <span class="ai-msg-card-icon">💡</span> Suggestion
+                                    </div>
+                                    <div class="ai-msg-card-text">
+                                        §2.1 lacks an automatic renewal clause — 87% of similar
+                                        agreements in your precedent bank include one.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ai-panel-actions">
+                            <button class="ai-action-chip">Draft clause</button>
+                            <button class="ai-action-chip">Full review</button>
+                            <button class="ai-action-chip">Redline</button>
+                            <button class="ai-action-chip">Precedents</button>
+                        </div>
+                        <div class="ai-panel-input">
+                            <input type="text" placeholder="Ask Lexie anything…" disabled>
+                            <button class="ai-send-btn">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M9 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="trust-bar">
+    <div class="container">
+        <p class="trust-label" data-animate="fade-up">Trusted by legal teams doing world-class work</p>
+        <div class="trust-logos" data-animate="fade-up" data-delay="0.2">
+            <div class="trust-logo-track">
+                <!-- Real law firm wordmarks as SVG -->
+                <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">DENTONS</text></svg>
+                <svg width="180" height="28" viewBox="0 0 180 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">BAKER McKENZIE</text></svg>
+                <svg width="160" height="28" viewBox="0 0 160 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">CLIFFORD CHANCE</text></svg>
+                <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">ALLEN & OVERY</text></svg>
+                <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">RAJAH & TANN</text></svg>
+                <svg width="130" height="28" viewBox="0 0 130 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">DREW & NAPIER</text></svg>
+                <svg width="160" height="28" viewBox="0 0 160 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">WONG PARTNERSHIP</text></svg>
+                <!-- Duplicate for seamless marquee -->
+                <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">DENTONS</text></svg>
+                <svg width="180" height="28" viewBox="0 0 180 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">BAKER McKENZIE</text></svg>
+                <svg width="160" height="28" viewBox="0 0 160 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">CLIFFORD CHANCE</text></svg>
+                <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">ALLEN & OVERY</text></svg>
+                <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">RAJAH & TANN</text></svg>
+                <svg width="130" height="28" viewBox="0 0 130 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">DREW & NAPIER</text></svg>
+                <svg width="160" height="28" viewBox="0 0 160 28"><text x="0" y="20" font-family="'Inter',sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="0.08em">WONG PARTNERSHIP</text></svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="workflow" id="workflow">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">How it works</span>
+            <h2>Four steps.<br><em>One seamless flow.</em></h2>
+            <p>Lexie doesn't replace your workflow — it accelerates it. Every step happens natively inside the tools you already use.</p>
+        </div>
+
+        <div class="workflow-steps">
+            <!-- STEP 1: DRAFT -->
+            <div class="workflow-step" data-animate="fade-up">
+                <div class="workflow-step-content">
+                    <div class="workflow-step-number">01</div>
+                    <h3>Draft</h3>
+                    <p class="workflow-step-headline">Write at the speed of thought.</p>
+                    <p class="workflow-step-desc">Lexie drafts directly in tracked changes — maintaining your voice, your formatting, your clause style. Start from a blank page or a precedent. Either way, you're reviewing a first draft in minutes, not hours.</p>
+                    <div class="workflow-step-tags">
+                        <span>Tracked changes</span>
+                        <span>Precedent-aware</span>
+                        <span>Style matching</span>
+                    </div>
+                </div>
+                <div class="workflow-step-visual">
+                    <div class="wf-visual-frame">
+                        <div class="wf-visual-bar">
+                            <span class="wf-dot"></span><span class="wf-dot"></span><span class="wf-dot"></span>
+                        </div>
+                        <div class="wf-visual-body wf-draft">
+                            <div class="wf-doc-line" style="width:85%"></div>
+                            <div class="wf-doc-line" style="width:70%"></div>
+                            <div class="wf-doc-line wf-tracked" style="width:90%">
+                                <div class="wf-tracked-bar"></div>
+                            </div>
+                            <div class="wf-doc-line wf-tracked" style="width:75%">
+                                <div class="wf-tracked-bar"></div>
+                            </div>
+                            <div class="wf-doc-line" style="width:60%"></div>
+                            <div class="wf-doc-line wf-tracked" style="width:80%">
+                                <div class="wf-tracked-bar"></div>
+                            </div>
+                            <div class="wf-doc-line" style="width:50%"></div>
+                            <div class="wf-cursor-blink"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector line -->
+            <div class="workflow-connector" data-animate="fade-up">
+                <svg width="2" height="60" viewBox="0 0 2 60"><line x1="1" y1="0" x2="1" y2="60" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="4 4"/><defs><linearGradient id="connGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0F4C81" stop-opacity="0.3"/><stop offset="100%" stop-color="#5AB472" stop-opacity="0.3"/></linearGradient></defs></svg>
+            </div>
+
+            <!-- STEP 2: REVIEW -->
+            <div class="workflow-step workflow-step-reverse" data-animate="fade-up">
+                <div class="workflow-step-content">
+                    <div class="workflow-step-number">02</div>
+                    <h3>Review</h3>
+                    <p class="workflow-step-headline">Catch what humans miss.</p>
+                    <p class="workflow-step-desc">Broken definitions. Dangling cross-references. Inconsistent defined terms. Lexie surfaces every issue in a single pass — flagging risks with explanations, not just redlines. One click to fix. One click to dismiss.</p>
+                    <div class="workflow-step-tags">
+                        <span>Definitions audit</span>
+                        <span>Cross-references</span>
+                        <span>Risk flagging</span>
+                    </div>
+                </div>
+                <div class="workflow-step-visual">
+                    <div class="wf-visual-frame">
+                        <div class="wf-visual-bar">
+                            <span class="wf-dot"></span><span class="wf-dot"></span><span class="wf-dot"></span>
+                        </div>
+                        <div class="wf-visual-body wf-review">
+                            <div class="wf-doc-line" style="width:80%"></div>
+                            <div class="wf-doc-line wf-flagged" style="width:90%">
+                                <div class="wf-flag-icon">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#E67E22" stroke-width="1.5"/><path d="M6 3.5v3M6 8.5v.01" stroke="#E67E22" stroke-width="1.5" stroke-linecap="round"/></svg>
+                                </div>
+                                <div class="wf-flag-tooltip">Undefined term: "Services"</div>
+                            </div>
+                            <div class="wf-doc-line" style="width:65%"></div>
+                            <div class="wf-doc-line wf-flagged wf-flagged-green" style="width:85%">
+                                <div class="wf-flag-icon">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#5AB472" stroke-width="1.5"/><path d="M4 6l1.5 1.5L8 4.5" stroke="#5AB472" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </div>
+                                <div class="wf-flag-tooltip wf-flag-green">Fixed: §3.2 reference</div>
+                            </div>
+                            <div class="wf-doc-line" style="width:70%"></div>
+                            <div class="wf-doc-line" style="width:55%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector line -->
+            <div class="workflow-connector" data-animate="fade-up">
+                <svg width="2" height="60" viewBox="0 0 2 60"><line x1="1" y1="0" x2="1" y2="60" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="4 4"/></svg>
+            </div>
+
+            <!-- STEP 3: EXECUTE -->
+            <div class="workflow-step" data-animate="fade-up">
+                <div class="workflow-step-content">
+                    <div class="workflow-step-number">03</div>
+                    <h3>Execute</h3>
+                    <p class="workflow-step-headline">Delegate the mechanical. Focus on the strategic.</p>
+                    <p class="workflow-step-desc">Hand entire workflows to Lexie — bulk redlines, clause extraction, email triage, document comparison. You set the parameters. Lexie executes while you focus on the judgement calls that actually require a lawyer.</p>
+                    <div class="workflow-step-tags">
+                        <span>Batch operations</span>
+                        <span>Email triage</span>
+                        <span>Doc comparison</span>
+                    </div>
+                </div>
+                <div class="workflow-step-visual">
+                    <div class="wf-visual-frame">
+                        <div class="wf-visual-bar">
+                            <span class="wf-dot"></span><span class="wf-dot"></span><span class="wf-dot"></span>
+                        </div>
+                        <div class="wf-visual-body wf-execute">
+                            <div class="wf-task-list">
+                                <div class="wf-task wf-task-done">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#5AB472"/><path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <span>Redline NDA — Acme Corp</span>
+                                </div>
+                                <div class="wf-task wf-task-done">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#5AB472"/><path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <span>Extract key clauses from SPA</span>
+                                </div>
+                                <div class="wf-task wf-task-active">
+                                    <div class="wf-task-spinner"></div>
+                                    <span>Triage 12 new emails</span>
+                                </div>
+                                <div class="wf-task wf-task-pending">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#444" stroke-width="1.5"/></svg>
+                                    <span>Compare lease v3 vs v4</span>
+                                </div>
+                            </div>
+                            <div class="wf-progress">
+                                <div class="wf-progress-bar"><div class="wf-progress-fill"></div></div>
+                                <span class="wf-progress-label">2 of 4 complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector line -->
+            <div class="workflow-connector" data-animate="fade-up">
+                <svg width="2" height="60" viewBox="0 0 2 60"><line x1="1" y1="0" x2="1" y2="60" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="4 4"/></svg>
+            </div>
+
+            <!-- STEP 4: REMEMBER -->
+            <div class="workflow-step workflow-step-reverse" data-animate="fade-up">
+                <div class="workflow-step-content">
+                    <div class="workflow-step-number">04</div>
+                    <h3>Remember</h3>
+                    <p class="workflow-step-headline">Every session makes the next one faster.</p>
+                    <p class="workflow-step-desc">Your clause library. Your preferred phrasing. Your firm's precedent bank. Lexie builds a private knowledge layer that compounds with use — so the more you work together, the less you repeat yourself.</p>
+                    <div class="workflow-step-tags">
+                        <span>Clause library</span>
+                        <span>Firm preferences</span>
+                        <span>Precedent bank</span>
+                    </div>
+                </div>
+                <div class="workflow-step-visual">
+                    <div class="wf-visual-frame">
+                        <div class="wf-visual-bar">
+                            <span class="wf-dot"></span><span class="wf-dot"></span><span class="wf-dot"></span>
+                        </div>
+                        <div class="wf-visual-body wf-remember">
+                            <div class="wf-memory-grid">
+                                <div class="wf-memory-card">
+                                    <div class="wf-memory-icon">📋</div>
+                                    <div class="wf-memory-label">Clause Library</div>
+                                    <div class="wf-memory-count">142 clauses</div>
+                                </div>
+                                <div class="wf-memory-card">
+                                    <div class="wf-memory-icon">✍️</div>
+                                    <div class="wf-memory-label">Style Prefs</div>
+                                    <div class="wf-memory-count">Active</div>
+                                </div>
+                                <div class="wf-memory-card">
+                                    <div class="wf-memory-icon">📚</div>
+                                    <div class="wf-memory-label">Precedents</div>
+                                    <div class="wf-memory-count">89 docs</div>
+                                </div>
+                                <div class="wf-memory-card">
+                                    <div class="wf-memory-icon">⚡</div>
+                                    <div class="wf-memory-label">Saved Prompts</div>
+                                    <div class="wf-memory-count">34 active</div>
+                                </div>
+                            </div>
+                            <div class="wf-memory-insight">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#5AB472" stroke-width="1.2"/><path d="M6 3v3.5l2.5 1" stroke="#5AB472" stroke-width="1.2" stroke-linecap="round"/></svg>
+                                <span>Your drafting speed has improved 3.2x this month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ THE PHILOSOPHY ============ -->
+<section class="philosophy">
+    <div class="container">
+        <div class="philosophy-inner" data-animate="fade-up">
+            <div class="philosophy-text">
+                <span class="section-eyebrow">Our philosophy</span>
+                <h2>The best AI is the one you <em>don't notice.</em></h2>
+                <p>
+                    Other tools pull you out of Word, paste your document into a browser,
+                    and make you wait. That's not intelligence — that's friction.
+                </p>
+                <p>
+                    Lexie is native to Microsoft Office. It reads your tracked changes,
+                    understands your formatting, respects your clause hierarchy. It works
+                    <em>with</em> your muscle memory, not against it.
+                </p>
+                <div class="philosophy-metrics">
+                    <div class="metric" data-animate="counter" data-target="0">
+                        <div class="metric-number">0</div>
+                        <div class="metric-label">tabs to switch</div>
+                    </div>
+                    <div class="metric" data-animate="counter" data-target="0">
+                        <div class="metric-number">0</div>
+                        <div class="metric-label">copy-pastes needed</div>
+                    </div>
+                    <div class="metric" data-animate="counter" data-target="100">
+                        <div class="metric-number">100<span>%</span></div>
+                        <div class="metric-label">in your flow</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CUSTOMER STORIES — Notion-inspired editorial grid ============ -->
+<section class="stories" id="stories">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">Customer stories</span>
+            <h2>How the best teams <em>use Lexie.</em></h2>
+            <p>Real results from legal professionals who chose to work in their flow.</p>
+        </div>
+
+        <!-- Featured story — large editorial card -->
+        <div class="story-featured" data-animate="scale-reveal">
+            <div class="story-featured-inner glass-card">
+                <div class="story-featured-content">
+                    <div class="story-featured-label">BOMBAY CAPITAL</div>
+                    <h3 class="story-featured-headline">How Bombay Capital cut claims processing time by 73% — without leaving Outlook.</h3>
+                    <p class="story-featured-excerpt">When CEO Tan Ji Hao's insurance team was drowning in manual compliance checks, they needed a tool that worked inside their existing workflow — not another platform to learn.</p>
+                    <div class="story-featured-metrics">
+                        <div class="sfm">
+                            <div class="sfm-number">73%</div>
+                            <div class="sfm-label">Faster processing</div>
+                        </div>
+                        <div class="sfm">
+                            <div class="sfm-number">4.8hrs</div>
+                            <div class="sfm-label">Saved per person/day</div>
+                        </div>
+                        <div class="sfm">
+                            <div class="sfm-number">2 weeks</div>
+                            <div class="sfm-label">To full deployment</div>
+                        </div>
+                    </div>
+                    <blockquote class="story-featured-quote">"Lexie changed how we handle insurance claims entirely. What used to take hours now takes minutes — and the accuracy improved."</blockquote>
+                    <div class="story-featured-author">
+                        <div class="testimonial-avatar">TH</div>
+                        <div>
+                            <div class="testimonial-name">Tan Ji Hao</div>
+                            <div class="testimonial-role">CEO, Bombay Capital</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-featured-visual">
+                    <div class="sfv-mockup">
+                        <div class="sfv-bar"><span></span><span></span><span></span></div>
+                        <div class="sfv-body">
+                            <div class="sfv-line" style="width:85%"></div>
+                            <div class="sfv-line sfv-accent" style="width:70%"></div>
+                            <div class="sfv-line" style="width:90%"></div>
+                            <div class="sfv-line" style="width:55%"></div>
+                            <div class="sfv-line sfv-accent" style="width:80%"></div>
+                            <div class="sfv-line" style="width:65%"></div>
+                            <div class="sfv-line sfv-accent" style="width:75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story grid — 3-column editorial cards -->
+        <div class="story-grid">
+            <div class="story-card-home glass-card" data-animate="stagger-up">
+                <div class="sch-icon">⚡</div>
+                <div class="sch-company">MERIDIAN PARTNERS</div>
+                <h4 class="sch-headline">How Meridian cut contract review time by 60% during a $200M acquisition.</h4>
+                <p class="sch-excerpt">The M&A team used Lexie's clause-level review directly in Word to flag risks across 400+ documents — in days, not weeks.</p>
+                <blockquote class="sch-quote">"We reviewed the entire data room in a fraction of the time. Lexie caught inconsistencies we would have missed."</blockquote>
+                <div class="sch-author">
+                    <div class="testimonial-avatar">AL</div>
+                    <div>
+                        <div class="testimonial-name">Alex Lim</div>
+                        <div class="testimonial-role">Managing Partner, Meridian Partners</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card-home glass-card" data-animate="stagger-up">
+                <div class="sch-icon">🏢</div>
+                <div class="sch-company">SERIES B STARTUP</div>
+                <h4 class="sch-headline">One GC, 300+ vendor contracts — zero outside counsel.</h4>
+                <p class="sch-excerpt">A solo general counsel used Lexie's batch processing to negotiate, review, and execute vendor agreements at startup speed.</p>
+                <blockquote class="sch-quote">"It gives me the firepower of a ten-person legal department. Legal went from a bottleneck to a strategic advantage."</blockquote>
+                <div class="sch-author">
+                    <div class="testimonial-avatar">RK</div>
+                    <div>
+                        <div class="testimonial-name">Rachel Koh</div>
+                        <div class="testimonial-role">General Counsel, Confidential</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card-home glass-card" data-animate="stagger-up">
+                <div class="sch-icon">👤</div>
+                <div class="sch-company">SOLO PRACTITIONER</div>
+                <h4 class="sch-headline">"I got my evenings back" — a family lawyer's Lexie story.</h4>
+                <p class="sch-excerpt">Routine document prep consumed half of every day. Now, first drafts are ready by the time the coffee cools down.</p>
+                <blockquote class="sch-quote">"The fact that it lives inside Word changed everything. Zero training, zero friction. Just better work, from day one."</blockquote>
+                <div class="sch-author">
+                    <div class="testimonial-avatar">DT</div>
+                    <div>
+                        <div class="testimonial-name">David Thompson</div>
+                        <div class="testimonial-role">Family Law, Singapore</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stories-cta" data-animate="fade-up">
+            <a href="customers.html" class="btn-outline">Read all customer stories
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M9 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ THREE PILLARS ============ -->
+<section class="pillars">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">Why Lexie</span>
+            <h2>Beyond Copilot.<br><em>Engineering with a law degree.</em></h2>
+            <p>Generic AI gives generic results. Lexie is purpose-built for the way lawyers actually work.</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card" data-animate="stagger-up">
+                <div class="pillar-visual pillar-v-affordable">
+                    <div class="pillar-mockup">
+                        <div class="pillar-mockup-bar"></div>
+                        <div class="pillar-mockup-lines">
+                            <div class="pml" style="width:90%"></div>
+                            <div class="pml accent" style="width:75%"></div>
+                            <div class="pml" style="width:60%"></div>
+                            <div class="pml" style="width:85%"></div>
+                            <div class="pml accent" style="width:50%"></div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Most Affordable</h3>
+                <p>Enterprise-grade legal AI without the enterprise price tag. Starting free, scaling to $49/mo. No six-figure contracts.</p>
+            </div>
+            <div class="pillar-card" data-animate="stagger-up">
+                <div class="pillar-visual pillar-v-accessible">
+                    <div class="pillar-mockup">
+                        <div class="pillar-mockup-bar"></div>
+                        <div class="pillar-mockup-lines">
+                            <div class="pml" style="width:70%"></div>
+                            <div class="pml" style="width:90%"></div>
+                            <div class="pml accent" style="width:80%"></div>
+                            <div class="pml" style="width:55%"></div>
+                            <div class="pml" style="width:75%"></div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Most Accessible</h3>
+                <p>No new platform to learn. No browser tabs. Lexie installs in Word and Outlook in under sixty seconds. That's it.</p>
+            </div>
+            <div class="pillar-card" data-animate="stagger-up">
+                <div class="pillar-visual pillar-v-personal">
+                    <div class="pillar-mockup">
+                        <div class="pillar-mockup-bar"></div>
+                        <div class="pillar-mockup-lines">
+                            <div class="pml accent" style="width:85%"></div>
+                            <div class="pml" style="width:65%"></div>
+                            <div class="pml" style="width:90%"></div>
+                            <div class="pml accent" style="width:70%"></div>
+                            <div class="pml" style="width:80%"></div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Most Personalised</h3>
+                <p>Learns your clause style, your precedent bank, your firm's preferences. The more you use it, the more it sounds like you.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SECURITY STRIP ============ -->
+<section class="security-strip">
+    <div class="container">
+        <div class="security-strip-inner" data-animate="fade-up">
+            <div class="security-strip-text">
+                <h2>Your client's secrets.<br><em>Kept secret.</em></h2>
+                <p>SOC 2 Type II certified. ISO 27001 compliant. Private processing via Google Vertex AI. Zero data retention. All data stays on your device.</p>
+                <a href="security.html" class="btn-outline">Learn about our security →</a>
+            </div>
+            <div class="security-strip-badges">
+                <div class="security-badge" data-animate="stagger-up">
+                    <div class="security-badge-icon">🔒</div>
+                    <div class="security-badge-label">Local-first architecture</div>
+                    <div class="security-badge-desc">Your documents never leave your device</div>
+                </div>
+                <div class="security-badge" data-animate="stagger-up">
+                    <div class="security-badge-icon">🛡️</div>
+                    <div class="security-badge-label">SOC 2 Type II</div>
+                    <div class="security-badge-desc">Enterprise-grade compliance and audit trail</div>
+                </div>
+                <div class="security-badge" data-animate="stagger-up">
+                    <div class="security-badge-icon">🔐</div>
+                    <div class="security-badge-label">Zero retention</div>
+                    <div class="security-badge-desc">We never train on your data. Ever.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="cta">
+    <div class="cta-bg">
+        <div class="cta-orb cta-orb-1"></div>
+        <div class="cta-orb cta-orb-2"></div>
+    </div>
+    <div class="container">
+        <div class="cta-inner" data-animate="fade-up">
+            <h2>Ready to work <em>smarter?</em></h2>
+            <p>Join the legal professionals who chose the tool that works the way they do — inside Word, inside Outlook, inside the flow.</p>
+            <form class="cta-form" onsubmit="event.preventDefault()">
+                <div class="cta-form-row">
+                    <input type="text" placeholder="Full name" required>
+                    <select required>
+                        <option value="" disabled selected>Organisation type</option>
+                        <option>Solo practitioner</option>
+                        <option>In-house team</option>
+                        <option>Law firm</option>
+                    </select>
+                </div>
+                <div class="cta-form-row">
+                    <input type="email" placeholder="Work email" required style="grid-column: 1/-1;">
+                </div>
+                <button type="submit" class="cta-submit">
+                    Schedule a demo
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M9 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </form>
+            <p class="cta-note">We'll be in touch within 24 hours. Prefer to explore first? <a href="pricing.html">Start free →</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+                <p>The native AI layer for legal professionals.<br>Built where you work.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="product.html">Word Add-in</a>
+                    <a href="product.html">Outlook Add-in</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="customers.html">Customers</a>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="security.html">Security</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">DPA</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Lexie AI. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

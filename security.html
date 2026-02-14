@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security — Lexie AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Security Page Specific Styles */
+
+        .hero-security {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%);
+            padding: 120px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-security::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(15, 76, 129, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(90, 180, 114, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-security-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-security h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            color: #FAF9F7;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero-security p {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            color: #B8B8B8;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Core Principles Grid */
+        .principles-section {
+            padding: 100px 40px;
+            background: #FAF9F7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 42px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .principle-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 8px;
+            border: 1px solid #E8E8E8;
+            transition: all 0.3s ease;
+        }
+
+        .principle-card:hover {
+            border-color: #0F4C81;
+            box-shadow: 0 12px 40px rgba(15, 76, 129, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .principle-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0F4C81 0%, #0A2A4A 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .principle-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .principle-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Architecture Section */
+        .architecture-section {
+            padding: 100px 40px;
+            background: #1A1A1A;
+            position: relative;
+        }
+
+        .architecture-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(15, 76, 129, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .architecture-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .architecture-section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 42px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            color: #FAF9F7;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .data-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, rgba(15, 76, 129, 0.15) 0%, rgba(90, 180, 114, 0.05) 100%);
+            border: 1px solid rgba(15, 76, 129, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+        }
+
+        .flow-box h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5AB472;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .flow-box p {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #B8B8B8;
+            line-height: 1.5;
+        }
+
+        .flow-arrow {
+            font-size: 28px;
+            color: #0F4C81;
+            margin-bottom: 20px;
+        }
+
+        .architecture-note {
+            background: rgba(90, 180, 114, 0.1);
+            border: 1px solid rgba(90, 180, 114, 0.2);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .architecture-note p {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #B8B8B8;
+            margin: 0;
+        }
+
+        .architecture-note strong {
+            color: #5AB472;
+        }
+
+        /* Certifications Section */
+        .certifications-section {
+            padding: 100px 40px;
+            background: #FAF9F7;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .certification-badge {
+            text-align: center;
+            padding: 40px 24px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #E8E8E8;
+            transition: all 0.3s ease;
+        }
+
+        .certification-badge:hover {
+            border-color: #0F4C81;
+            box-shadow: 0 8px 24px rgba(15, 76, 129, 0.12);
+        }
+
+        .cert-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #0F4C81 0%, #0A2A4A 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            margin: 0 auto 20px;
+        }
+
+        .certification-badge h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+
+        .certification-badge p {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* CTO Quote Section */
+        .quote-section {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #1A1A1A 0%, #252525 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(15, 76, 129, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(90, 180, 114, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .quote-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-size: 48px;
+            color: #0F4C81;
+            margin-bottom: 24px;
+            opacity: 0.6;
+        }
+
+        .quote-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            color: #FAF9F7;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .quote-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #B8B8B8;
+        }
+
+        .quote-author strong {
+            color: #5AB472;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 40px;
+            background: #FAF9F7;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #E8E8E8;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #0F4C81;
+            box-shadow: 0 8px 24px rgba(15, 76, 129, 0.08);
+        }
+
+        .faq-question {
+            padding: 24px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #FAF9F7;
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0F4C81;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #FAF9F7;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 32px 24px 32px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-security {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #0F4C81 0%, #0A2A4A 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-security::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-security-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-security h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 36px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            color: #FAF9F7;
+            margin-bottom: 16px;
+        }
+
+        .cta-security p {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: rgba(250, 249, 247, 0.85);
+            margin-bottom: 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 40px;
+            background: #5AB472;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #4A9A62;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(90, 180, 114, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-security {
+                padding: 80px 24px;
+            }
+
+            .hero-security h1 {
+                font-size: 36px;
+            }
+
+            .hero-security p {
+                font-size: 16px;
+            }
+
+            .principles-section,
+            .architecture-section,
+            .certifications-section,
+            .quote-section,
+            .faq-section,
+            .cta-security {
+                padding: 60px 24px;
+            }
+
+            .section-header h2,
+            .architecture-section h2,
+            .cta-security h2 {
+                font-size: 28px;
+            }
+
+            .quote-text {
+                font-size: 20px;
+            }
+
+            .data-flow {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 8px 0;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+            <div class="nav-links">
+                <a href="product.html">Product</a>
+                <a href="customers.html">Customers</a>
+                <a href="security.html">Security</a>
+                <a href="pricing.html">Pricing</a>
+            </div>
+            <div class="nav-actions">
+                <a href="pricing.html" class="btn-ghost">Try free</a>
+                <a href="index.html#cta" class="btn-primary">Book a demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-security">
+        <div class="hero-security-content" data-animate="fade-up">
+            <h1>Your client's secrets. Kept secret.</h1>
+            <p>Security isn't an afterthought — it's foundational. We exceed industry standards across every layer, from encryption to compliance, because your data deserves nothing less.</p>
+        </div>
+    </section>
+
+    <!-- Core Security Principles -->
+    <section class="principles-section">
+        <div class="section-header" data-animate="fade-up">
+            <h2>Core Security Principles</h2>
+            <p>Built on a foundation of trust and rigorous standards</p>
+        </div>
+        <div class="principles-grid" data-animate="stagger-up">
+            <div class="principle-card">
+                <div class="principle-icon">🔒</div>
+                <h3>You Retain Full Control</h3>
+                <p>All sensitive data is stored locally on your device. We never copy, cache, or store your files on Lexie servers. Your data, your control, always.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-icon">✓</div>
+                <h3>Enterprise-Grade Certifications</h3>
+                <p>SOC 2 Type II and ISO 27001 certified. We maintain the highest standards of security and compliance across our infrastructure and operations.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-icon">🔐</div>
+                <h3>Private Processing</h3>
+                <p>Powered by Google Vertex AI with zero data retention. Queries are processed securely, then deleted immediately. No training data collection.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-icon">👥</div>
+                <h3>Security as a Mindset</h3>
+                <p>Our founding team draws from law, insurance, and banking. We understand high-stakes environments and build security into every decision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture-section">
+        <div class="architecture-content">
+            <h2 data-animate="fade-up">Architecture Overview</h2>
+            <div class="data-flow" data-animate="fade-up">
+                <div class="flow-item">
+                    <div class="flow-box">
+                        <h4>Your Device</h4>
+                        <p>All your documents remain here. Zero remote storage.</p>
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-arrow">→</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-box">
+                        <h4>Encrypted API</h4>
+                        <p>End-to-end encryption for all data in transit.</p>
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-arrow">→</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-box">
+                        <h4>Vertex AI</h4>
+                        <p>Zero retention processing. Immediate deletion.</p>
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-arrow">→</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-box">
+                        <h4>Back to Device</h4>
+                        <p>Response delivered securely, nothing stays.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="architecture-note" data-animate="fade-up">
+                <p><strong>Complete Privacy by Design:</strong> No data ever stored on Lexie's servers. Your client information flows through our system, never stays in it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance & Certifications -->
+    <section class="certifications-section">
+        <div class="section-header" data-animate="fade-up">
+            <h2>Compliance & Certifications</h2>
+            <p>Audited and verified by leading security standards</p>
+        </div>
+        <div class="certifications-grid" data-animate="stagger-up">
+            <div class="certification-badge">
+                <div class="cert-icon">📋</div>
+                <h4>SOC 2 Type II</h4>
+                <p>Security, availability, and confidentiality controls</p>
+            </div>
+            <div class="certification-badge">
+                <div class="cert-icon">🛡️</div>
+                <h4>ISO 27001</h4>
+                <p>Information security management systems</p>
+            </div>
+            <div class="certification-badge">
+                <div class="cert-icon">🌍</div>
+                <h4>GDPR Compliant</h4>
+                <p>Full compliance with data protection regulations</p>
+            </div>
+            <div class="certification-badge">
+                <div class="cert-icon">✅</div>
+                <h4>Cyber Essentials</h4>
+                <p>Government-backed cyber security certification</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTO Quote Section -->
+    <section class="quote-section">
+        <div class="quote-content" data-animate="fade-up">
+            <div class="quote-mark">"</div>
+            <p class="quote-text">Privacy and security are not afterthoughts—they are foundational. As a distinguished graduate from AI Safety Asia, I have deeply appreciated Lexie's architecture, built with a safety-first mindset for real-world AI use.</p>
+            <p class="quote-author"><strong>Joe Su,</strong> Chief Technology Officer</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-header" data-animate="fade-up">
+            <h2>Security Questions</h2>
+            <p>Everything you need to know about data protection and privacy</p>
+        </div>
+        <div class="faq-container" data-animate="stagger-up">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is my data used to train AI models?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Absolutely not. Your documents and queries are never used for model training. Google Vertex AI processes your request with zero data retention — your information is deleted immediately after the response is generated. This is a core part of our privacy-first architecture.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Where is my data stored?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Your data stays on your device. We store nothing on Lexie's servers. When you use the add-in, your documents remain in Word or Outlook on your computer. API requests are encrypted in transit and processed by Google Vertex AI with zero retention — the response comes back to your device and nothing is stored remotely.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Can Lexie access my files when I'm not using it?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>No. The Lexie AI add-in only interacts with your documents when you explicitly invoke it. We have no background access to your files, no scheduled syncing, and no dormant connections. Your files are yours alone, accessed only when you choose to use the tool.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What certifications do you hold?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Lexie AI is SOC 2 Type II certified, ISO 27001 certified, GDPR compliant, and Cyber Essentials certified. These certifications are regularly audited by third-party security experts to ensure we maintain the highest standards of information security, availability, and confidentiality.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How is data encrypted in transit?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>All communication between the Lexie add-in and Google Vertex AI uses TLS 1.2 or higher encryption. This means your data is protected with industry-standard encryption protocols, ensuring that sensitive information cannot be intercepted or viewed during transmission.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What happens if there's a security incident?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>We maintain comprehensive incident response procedures as part of our SOC 2 Type II compliance. We monitor for threats continuously, have a dedicated security team, and are committed to transparent communication. If a security event occurs, we follow strict protocols for investigation, notification, and remediation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-security">
+        <div class="cta-security-content" data-animate="fade-up">
+            <h2>Have security questions?</h2>
+            <p>Our security team is ready to discuss your specific needs, provide documentation, or arrange a detailed review of our architecture.</p>
+            <a href="mailto:security@lexie.ai" class="cta-button">Contact Security Team</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Lexie AI</h4>
+                <p>Legal AI add-in for Microsoft Word and Outlook</p>
+            </div>
+            <div class="footer-column">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="product.html">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="customers.html">Customers</a></li>
+                    <li><a href="security.html">Security</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Acceptable Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Lexie AI. Built for legal professionals.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade-up animation
+        gsap.utils.toArray('[data-animate="fade-up"]').forEach(element => {
+            gsap.from(element, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Stagger-up animation
+        gsap.utils.toArray('[data-animate="stagger-up"]').forEach(element => {
+            const children = element.children;
+            gsap.from(children, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

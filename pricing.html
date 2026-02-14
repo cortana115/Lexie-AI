@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Lexie AI | Legal AI for Microsoft Word & Outlook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Pricing Page Specific Styles */
+
+        .pricing-hero {
+            padding: 120px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #FAF9F7 0%, #F5F3F0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(15, 76, 129, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .pricing-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            data-animate: "fade-up";
+        }
+
+        .pricing-hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .pricing-hero .subtitle {
+            font-size: 18px;
+            color: #666;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Pricing Toggle */
+        .pricing-toggle-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin: 80px 0;
+            data-animate: "fade-up";
+        }
+
+        .pricing-toggle {
+            display: inline-flex;
+            background: #F0F0F0;
+            border-radius: 8px;
+            padding: 4px;
+            gap: 0;
+        }
+
+        .pricing-toggle button {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .pricing-toggle button.active {
+            background: white;
+            color: #0F4C81;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: #5AB472;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Pricing Cards Container */
+        .pricing-cards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 1px solid #E8E8E8;
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.3s ease;
+            data-animate: "fade-up";
+        }
+
+        .pricing-card:hover {
+            border-color: #0F4C81;
+            box-shadow: 0 16px 48px rgba(15, 76, 129, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #0F4C81;
+            background: linear-gradient(135deg, #F5F9FF 0%, #FAFBFF 100%);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.featured:hover {
+            box-shadow: 0 24px 64px rgba(15, 76, 129, 0.16);
+            transform: scale(1.02) translateY(-4px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0F4C81;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: none;
+        }
+
+        .pricing-card.featured .pricing-badge {
+            display: block;
+        }
+
+        .pricing-tier-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 600;
+            color: #0F4C81;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price.free {
+            color: #5AB472;
+        }
+
+        .pricing-period {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 24px;
+        }
+
+        .pricing-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        .pricing-cta.primary {
+            background: #0F4C81;
+            color: white;
+        }
+
+        .pricing-cta.primary:hover {
+            background: #0D3A5C;
+            box-shadow: 0 8px 24px rgba(15, 76, 129, 0.3);
+        }
+
+        .pricing-cta.secondary {
+            background: #F0F0F0;
+            color: #1A1A1A;
+        }
+
+        .pricing-cta.secondary:hover {
+            background: #E8E8E8;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: #5AB472;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Feature Comparison Table */
+        .comparison-section {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 80px 40px;
+            border-top: 1px solid #E8E8E8;
+        }
+
+        .comparison-section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 42px;
+            font-weight: 500;
+            color: #1A1A1A;
+            text-align: center;
+            margin-bottom: 60px;
+            data-animate: "fade-up";
+        }
+
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            data-animate: "fade-up";
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .comparison-table thead {
+            background: #FAF9F7;
+            border-bottom: 2px solid #E8E8E8;
+        }
+
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+            border-right: 1px solid #E8E8E8;
+        }
+
+        .comparison-table th:last-child {
+            border-right: none;
+        }
+
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #F0F0F0;
+            border-right: 1px solid #F0F0F0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .comparison-table td:last-child {
+            border-right: none;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .feature-name {
+            font-weight: 500;
+            color: #1A1A1A;
+            background: #FAF9F7;
+            width: 200px;
+        }
+
+        .comparison-table .checkmark {
+            color: #5AB472;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .comparison-table .dash {
+            color: #DDD;
+            text-align: center;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 900px;
+            margin: 100px auto 0;
+            padding: 80px 40px;
+            border-top: 1px solid #E8E8E8;
+        }
+
+        .faq-section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 42px;
+            font-weight: 500;
+            color: #1A1A1A;
+            text-align: center;
+            margin-bottom: 60px;
+            data-animate: "fade-up";
+        }
+
+        .faq-item {
+            margin-bottom: 24px;
+            data-animate: "fade-up";
+        }
+
+        .faq-question {
+            background: #FAF9F7;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid #F0F0F0;
+        }
+
+        .faq-question:hover {
+            background: #F5F3F0;
+            border-color: #E8E8E8;
+        }
+
+        .faq-question.active {
+            background: white;
+            border: 1px solid #0F4C81;
+        }
+
+        .faq-question-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1A1A1A;
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0F4C81;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            background: white;
+            padding: 20px;
+            border: 1px solid #E8E8E8;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            max-width: 700px;
+            margin: 100px auto 0;
+            padding: 80px 40px;
+            text-align: center;
+            border-top: 1px solid #E8E8E8;
+            data-animate: "fade-up";
+        }
+
+        .cta-section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 36px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            padding: 14px 32px;
+            background: #0F4C81;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #0D3A5C;
+            box-shadow: 0 8px 24px rgba(15, 76, 129, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pricing-hero {
+                padding: 80px 24px;
+            }
+
+            .pricing-hero h1 {
+                font-size: 36px;
+            }
+
+            .pricing-hero .subtitle {
+                font-size: 16px;
+            }
+
+            .pricing-toggle-section {
+                flex-direction: column;
+                gap: 16px;
+                margin: 60px 0;
+            }
+
+            .pricing-cards-container {
+                grid-template-columns: 1fr;
+                padding: 60px 24px;
+                gap: 24px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-4px);
+            }
+
+            .comparison-section,
+            .faq-section,
+            .cta-section {
+                padding: 60px 24px;
+            }
+
+            .comparison-section h2,
+            .faq-section h2 {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+
+            .cta-section h2 {
+                font-size: 24px;
+            }
+
+            .comparison-table {
+                font-size: 13px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 14px 10px;
+            }
+
+            .comparison-table .feature-name {
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pricing-hero h1 {
+                font-size: 28px;
+            }
+
+            .pricing-hero .subtitle {
+                font-size: 14px;
+            }
+
+            .pricing-price {
+                font-size: 36px;
+            }
+
+            .comparison-section h2,
+            .faq-section h2,
+            .cta-section h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">LEXIE<span>.</span></a>
+            <div class="nav-links">
+                <a href="product.html">Product</a>
+                <a href="customers.html">Customers</a>
+                <a href="security.html">Security</a>
+                <a href="pricing.html">Pricing</a>
+            </div>
+            <div class="nav-actions">
+                <a href="pricing.html" class="btn-ghost">Try free</a>
+                <a href="index.html#cta" class="btn-primary">Book a demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="pricing-hero-content" data-animate="fade-up">
+            <h1>Asia's most accessible legal AI.</h1>
+            <p class="subtitle">Straightforward pricing. No surprises. Get Wall Street precision without the Wall Street price tag.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Toggle -->
+    <div class="pricing-toggle-section" data-animate="fade-up">
+        <div class="pricing-toggle">
+            <button class="toggle-btn active" data-period="monthly">Monthly</button>
+            <button class="toggle-btn" data-period="annual">Annual</button>
+        </div>
+        <div class="savings-badge" id="savingsBadge" style="opacity: 0; pointer-events: none;">
+            Save 20%
+        </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <section class="pricing-cards-container">
+        <!-- Starter Card -->
+        <div class="pricing-card" data-animate="fade-up">
+            <div class="pricing-tier-name">Starter</div>
+            <div class="pricing-price free">Free</div>
+            <p class="pricing-period">Forever free</p>
+            <p class="pricing-description">Perfect for getting started with legal AI assistance.</p>
+            <button class="pricing-cta secondary">Get started</button>
+            <ul class="pricing-features">
+                <li>50 AI actions/month</li>
+                <li>Word Add-in</li>
+                <li>Basic clause review</li>
+                <li>Community support</li>
+            </ul>
+        </div>
+
+        <!-- Professional Card (Featured) -->
+        <div class="pricing-card featured" data-animate="fade-up">
+            <div class="pricing-badge">Most popular</div>
+            <div class="pricing-tier-name">Professional</div>
+            <div class="pricing-price" id="proPrice">$49</div>
+            <p class="pricing-period"><span id="proUnit">per user / month</span></p>
+            <p class="pricing-description">Everything you need for seamless legal document work.</p>
+            <button class="pricing-cta primary">Start free trial</button>
+            <ul class="pricing-features">
+                <li>Unlimited AI actions</li>
+                <li>Word + Outlook Add-in</li>
+                <li>Precedent bank</li>
+                <li>Saved prompts & memory</li>
+                <li>Priority support</li>
+                <li>Multi-document awareness</li>
+            </ul>
+        </div>
+
+        <!-- Enterprise Card -->
+        <div class="pricing-card" data-animate="fade-up">
+            <div class="pricing-tier-name">Enterprise</div>
+            <div class="pricing-price" style="color: #0F4C81;">Custom</div>
+            <p class="pricing-period">Tailored pricing</p>
+            <p class="pricing-description">Complete control with dedicated support and custom solutions.</p>
+            <button class="pricing-cta secondary">Contact sales</button>
+            <ul class="pricing-features">
+                <li>Everything in Professional</li>
+                <li>Custom model tuning</li>
+                <li>SSO & admin controls</li>
+                <li>Dedicated account manager</li>
+                <li>On-premise deployment option</li>
+                <li>Custom SLAs</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="comparison-section">
+        <h2 data-animate="fade-up">Complete Feature Comparison</h2>
+        <div class="comparison-table-wrapper" data-animate="fade-up">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter</th>
+                        <th>Professional</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">AI Actions/month</td>
+                        <td class="checkmark">50</td>
+                        <td class="checkmark">Unlimited</td>
+                        <td class="checkmark">Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Word Add-in</td>
+                        <td class="checkmark">✓</td>
+                        <td class="checkmark">✓</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Outlook Add-in</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Clause Review</td>
+                        <td class="checkmark">Basic</td>
+                        <td class="checkmark">Advanced</td>
+                        <td class="checkmark">Advanced</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Precedent Bank</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Saved Prompts & Memory</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Multi-Document Awareness</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Custom Model Tuning</td>
+                        <td class="dash">—</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">SSO & Admin Controls</td>
+                        <td class="dash">—</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Support Level</td>
+                        <td>Community</td>
+                        <td class="checkmark">Priority</td>
+                        <td class="checkmark">Dedicated</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">On-Premise Deployment</td>
+                        <td class="dash">—</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Custom SLAs</td>
+                        <td class="dash">—</td>
+                        <td class="dash">—</td>
+                        <td class="checkmark">✓</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 data-animate="fade-up">Frequently Asked Questions</h2>
+
+        <div class="faq-item" data-animate="fade-up">
+            <div class="faq-question">
+                <span class="faq-question-text">Do I need to install anything?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                No installation required! Lexie AI is available as a Microsoft Word and Outlook add-in. Simply visit the Microsoft AppSource store, search for Lexie AI, and add it to your Microsoft account. It will instantly appear in your Word and Outlook ribbons, ready to use.
+            </div>
+        </div>
+
+        <div class="faq-item" data-animate="fade-up">
+            <div class="faq-question">
+                <span class="faq-question-text">Can I switch plans?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Absolutely! You can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate charges based on your usage. If you upgrade, the additional features unlock instantly. If you downgrade, the change applies at the start of your next billing cycle.
+            </div>
+        </div>
+
+        <div class="faq-item" data-animate="fade-up">
+            <div class="faq-question">
+                <span class="faq-question-text">Is there a free trial for Professional?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes! We offer a 14-day free trial of the Professional plan with full access to all features. No credit card required to start. After the trial ends, you can choose to continue with a paid subscription, downgrade to Starter, or cancel anytime.
+            </div>
+        </div>
+
+        <div class="faq-item" data-animate="fade-up">
+            <div class="faq-question">
+                <span class="faq-question-text">What happens to my data if I downgrade?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Your data is always secure. If you downgrade from Professional to Starter, your saved prompts, precedent bank, and memory features will be read-only until you upgrade again. Documents and basic data remain accessible. We never delete your information without explicit request.
+            </div>
+        </div>
+
+        <div class="faq-item" data-animate="fade-up">
+            <div class="faq-question">
+                <span class="faq-question-text">Do you offer discounts for teams?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes! We offer significant volume discounts for teams and law firms. Annual subscriptions save you 20% already, and teams of 5+ users can qualify for additional discounts. Contact our sales team for a custom quote tailored to your team size and needs.
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" data-animate="fade-up">
+        <h2>Still have questions?</h2>
+        <p>Our legal AI specialists are ready to show you how Lexie AI can transform your workflow. Book a personalized demo today.</p>
+        <button class="cta-button">Book a Demo</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="product.html">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="#">API Docs</a></li>
+                    <li><a href="#">Changelog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Lexie AI. All rights reserved. Made with precision for legal professionals.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        // Pricing Toggle Functionality
+        const toggleButtons = document.querySelectorAll('.toggle-btn');
+        const proPriceElement = document.getElementById('proPrice');
+        const proUnitElement = document.getElementById('proUnit');
+        const savingsBadge = document.getElementById('savingsBadge');
+
+        const prices = {
+            monthly: { price: '$49', unit: 'per user / month' },
+            annual: { price: '$39', unit: 'per user / month (billed annually)' }
+        };
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                toggleButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const period = button.getAttribute('data-period');
+                const priceData = prices[period];
+
+                // Update price and unit
+                proPriceElement.textContent = priceData.price;
+                proUnitElement.textContent = priceData.unit;
+
+                // Show/hide savings badge
+                if (period === 'annual') {
+                    savingsBadge.style.opacity = '1';
+                    savingsBadge.style.pointerEvents = 'auto';
+                } else {
+                    savingsBadge.style.opacity = '0';
+                    savingsBadge.style.pointerEvents = 'none';
+                }
+            });
+        });
+
+        // FAQ Accordion Functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+
+                // Close all other FAQs
+                faqQuestions.forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                });
+
+                // Toggle current FAQ
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize GSAP animations for data-animate attributes
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            const animationType = el.getAttribute('data-animate');
+
+            if (animationType === 'fade-up') {
+                gsap.from(el, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
