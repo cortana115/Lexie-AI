@@ -1,30 +1,142 @@
 'use client'
 
 import { useEffect } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+
+const EASE = {
+  liquid: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+  silk: 'cubic-bezier(0.86, 0, 0.07, 1)',
+  spring: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+  elastic: 'elastic.out(1, 0.5)',
+}
+
+function initializeAnimations() {
+  if (typeof window === 'undefined') return
+
+  /* Preloader Animation */
+  const preloader = document.querySelector('.preloader')
+  if (preloader) {
+    gsap.to(preloader, {
+      opacity: 0,
+      duration: 0.8,
+      delay: 1.8,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        (preloader as HTMLElement).style.display = 'none'
+      }
+    })
+  }
+
+  /* Cursor Follower */
+  const cursorGlow = document.querySelector('.cursor-glow')
+  if (cursorGlow && window.innerWidth > 1024) {
+    let mouseX = 0, mouseY = 0
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+      gsap.to(cursorGlow, {
+        left: mouseX - 16,
+        top: mouseY - 16,
+        duration: 0.3,
+        overwrite: 'auto'
+      })
+    })
+  }
+
+  /* Navigation */
+  const nav = document.querySelector('.nav')
+  const navToggle = document.querySelector('.nav-mobile-toggle')
+  const navMobile = document.querySelector('.nav-mobile')
+
+  let lastScrollY = 0
+  window.addEventListener('scroll', () => {
+    const currentY = window.scrollY
+    nav?.classList.toggle('scrolled', currentY > 10)
+    if (currentY > 300) {
+      nav?.classList.toggle('nav-hidden', currentY > lastScrollY && currentY - lastScrollY > 5)
+    } else {
+      nav?.classList.remove('nav-hidden')
+    }
+    lastScrollY = currentY
+  })
+
+  navToggle?.addEventListener('click', () => {
+    navToggle.classList.toggle('open')
+    navMobile?.classList.toggle('open')
+  })
+
+  /* Product Tab Switching */
+  document.querySelectorAll('.product-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = (tab as any).dataset.tab
+      document.querySelectorAll('.product-tab').forEach(t => t.classList.remove('active'))
+      tab.classList.add('active')
+
+      const wordDoc = document.getElementById('docWord')
+      const outlookDoc = document.getElementById('docOutlook')
+      if (!wordDoc || !outlookDoc) return
+
+      const showing = target === 'word' ? wordDoc : outlookDoc
+      const hiding = target === 'word' ? outlookDoc : wordDoc
+
+      gsap.to(hiding, {
+        opacity: 0, y: 8, duration: 0.2,
+        onComplete: () => {
+          hiding.style.display = 'none'
+          showing.style.display = ''
+          gsap.fromTo(showing,
+            { opacity: 0, y: -8 },
+            { opacity: 1, y: 0, duration: 0.35, ease: EASE.silk }
+          )
+        }
+      })
+    })
+  })
+
+  /* Hero Animation */
+  function startHeroAnimation() {
+    const tl = gsap.timeline({ defaults: { ease: EASE.liquid }})
+    tl.from('.hero-eyebrow', { y: 24, opacity: 0, duration: 0.8, ease: EASE.silk })
+      .from('.hero-line', { y: 60, opacity: 0, duration: 1, stagger: 0.12, ease: EASE.liquid }, '-=0.5')
+      .from('.hero-subtitle', { y: 20, opacity: 0, duration: 0.9, ease: EASE.silk }, '-=0.6')
+      .from('.hero-ctas', { y: 20, opacity: 0, duration: 0.8, ease: EASE.spring }, '-=0.5')
+      .from('.product-window', { y: 80, opacity: 0, scale: 0.95, duration: 1.2, ease: EASE.liquid }, '-=0.5')
+      .from('.liquid-blob', { scale: 0, opacity: 0, duration: 1.5, stagger: 0.2, ease: EASE.elastic }, '-=1')
+  }
+
+  startHeroAnimation()
+
+  /* Scroll Animations */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const animDuration = prefersReducedMotion ? 0.01 : undefined
+
+  gsap.utils.toArray('[data-animate="fade-up"]').forEach((el: any) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+      y: 40, opacity: 0, duration: animDuration || 0.9,
+      delay: parseFloat(el.dataset.delay || 0), ease: EASE.liquid
+    })
+  })
+
+  /* Trust Marquee */
+  const trustTrack = document.querySelector('.trust-logo-track')
+  if (trustTrack) {
+    trustTrack.addEventListener('mouseenter', () => {
+      (trustTrack as any).style.animationPlayState = 'paused'
+    })
+    trustTrack.addEventListener('mouseleave', () => {
+      (trustTrack as any).style.animationPlayState = 'running'
+    })
+  }
+}
 
 export default function Home() {
   useEffect(() => {
-    // Dynamically load GSAP
-    const loadGSAP = async () => {
-      const script = document.createElement('script')
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'
-      script.onload = () => {
-        const scrollTrigger = document.createElement('script')
-        scrollTrigger.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'
-        scrollTrigger.onload = () => {
-          const scrollTo = document.createElement('script')
-          scrollTo.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js'
-          scrollTo.onload = () => {
-            // Load animations
-            loadAnimations()
-          }
-          document.body.appendChild(scrollTo)
-        }
-        document.body.appendChild(scrollTrigger)
-      }
-      document.body.appendChild(script)
-    }
-    loadGSAP()
+    initializeAnimations()
   }, [])
 
   return (
@@ -326,7 +438,6 @@ export default function Home() {
               <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" fontFamily="'Inter',sans-serif" fontWeight="700" fontSize="13" fill="#888" letterSpacing="0.08em">RAJAH & TANN</text></svg>
               <svg width="130" height="28" viewBox="0 0 130 28"><text x="0" y="20" fontFamily="'Inter',sans-serif" fontWeight="700" fontSize="13" fill="#888" letterSpacing="0.08em">DREW & NAPIER</text></svg>
               <svg width="160" height="28" viewBox="0 0 160 28"><text x="0" y="20" fontFamily="'Inter',sans-serif" fontWeight="700" fontSize="13" fill="#888" letterSpacing="0.08em">WONG PARTNERSHIP</text></svg>
-              {/* Duplicate for seamless marquee */}
               <svg width="140" height="28" viewBox="0 0 140 28"><text x="0" y="20" fontFamily="'Inter',sans-serif" fontWeight="700" fontSize="13" fill="#888" letterSpacing="0.08em">DENTONS</text></svg>
               <svg width="180" height="28" viewBox="0 0 180 28"><text x="0" y="20" fontFamily="'Inter',sans-serif" fontWeight="700" fontSize="13" fill="#888" letterSpacing="0.08em">BAKER McKENZIE</text></svg>
               <svg width="160" height="28" viewBox="0 0 160 28"><text x="0" y="20" fontFamily="'Inter',sans-serif" fontWeight="700" fontSize="13" fill="#888" letterSpacing="0.08em">CLIFFORD CHANCE</text></svg>
@@ -336,158 +447,4 @@ export default function Home() {
       </section>
     </>
   )
-}
-
-// Load all animations
-function loadAnimations() {
-  if (typeof window === 'undefined') return
-  const gsap = (window as any).gsap
-  if (!gsap) return
-
-  gsap.registerPlugin((window as any).ScrollTrigger)
-
-  const EASE = {
-    smooth: 'power3.out',
-    silk: 'expo.out',
-    elastic: 'elastic.out(1, 0.5)',
-    spring: 'back.out(1.2)',
-    liquid: 'power4.out',
-    slowMo: 'power2.inOut'
-  }
-
-  /* Preloader */
-  const preloader = document.getElementById('preloader')
-  let heroAnimated = false
-
-  function dismissPreloader() {
-    if (heroAnimated) return
-    heroAnimated = true
-    preloader?.classList.add('done')
-    setTimeout(startHeroAnimation, 200)
-  }
-
-  window.addEventListener('load', () => setTimeout(dismissPreloader, 1200))
-  if (document.readyState === 'complete') setTimeout(dismissPreloader, 1200)
-
-  /* Custom Cursor */
-  const cursorGlow = document.getElementById('cursorGlow')
-  if (cursorGlow && window.innerWidth > 1024) {
-    let mouseX = 0, mouseY = 0
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-    })
-    gsap.ticker.add(() => {
-      gsap.set(cursorGlow, { x: mouseX, y: mouseY })
-    })
-
-    document.querySelectorAll('.btn-primary, .btn-outline, .product-tab, .ai-action-chip').forEach((btn: any) => {
-      btn.addEventListener('mouseenter', () => {
-        gsap.to(cursorGlow, { scale: 1.5, opacity: 0.8, duration: 0.4, ease: EASE.silk })
-      })
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(cursorGlow, { scale: 1, opacity: 0.5, duration: 0.4, ease: EASE.silk })
-      })
-    })
-  }
-
-  /* Liquid Blobs */
-  const blobs = document.querySelectorAll('.liquid-blob')
-  blobs.forEach((blob: any, i: number) => {
-    gsap.to(blob, {
-      x: () => gsap.utils.random(-40, 40),
-      y: () => gsap.utils.random(-30, 30),
-      scale: () => gsap.utils.random(0.9, 1.1),
-      rotation: () => gsap.utils.random(-10, 10),
-      duration: () => gsap.utils.random(6, 10),
-      ease: 'sine.inOut',
-      repeat: -1,
-      yoyo: true,
-      delay: i * 0.5,
-    })
-  })
-
-  /* Navigation */
-  const nav = document.getElementById('nav')
-  const navToggle = document.getElementById('navToggle')
-  const navMobile = document.getElementById('navMobile')
-
-  let lastScrollY = 0
-  window.addEventListener('scroll', () => {
-    const currentY = window.scrollY
-    nav?.classList.toggle('scrolled', currentY > 10)
-    if (currentY > 300) {
-      nav?.classList.toggle('nav-hidden', currentY > lastScrollY && currentY - lastScrollY > 5)
-    } else {
-      nav?.classList.remove('nav-hidden')
-    }
-    lastScrollY = currentY
-  })
-
-  navToggle?.addEventListener('click', () => {
-    navToggle.classList.toggle('open')
-    navMobile?.classList.toggle('open')
-  })
-
-  /* Product Tab Switching */
-  document.querySelectorAll('.product-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = (tab as any).dataset.tab
-      document.querySelectorAll('.product-tab').forEach(t => t.classList.remove('active'))
-      tab.classList.add('active')
-
-      const wordDoc = document.getElementById('docWord')
-      const outlookDoc = document.getElementById('docOutlook')
-      if (!wordDoc || !outlookDoc) return
-
-      const showing = target === 'word' ? wordDoc : outlookDoc
-      const hiding = target === 'word' ? outlookDoc : wordDoc
-
-      gsap.to(hiding, {
-        opacity: 0, y: 8, duration: 0.2,
-        onComplete: () => {
-          hiding.style.display = 'none'
-          showing.style.display = ''
-          gsap.fromTo(showing,
-            { opacity: 0, y: -8 },
-            { opacity: 1, y: 0, duration: 0.35, ease: EASE.silk }
-          )
-        }
-      })
-    })
-  })
-
-  /* Hero Animation */
-  function startHeroAnimation() {
-    const tl = gsap.timeline({ defaults: { ease: EASE.liquid }})
-    tl.from('.hero-eyebrow', { y: 24, opacity: 0, duration: 0.8, ease: EASE.silk })
-      .from('.hero-line', { y: 60, opacity: 0, duration: 1, stagger: 0.12, ease: EASE.liquid }, '-=0.5')
-      .from('.hero-subtitle', { y: 20, opacity: 0, duration: 0.9, ease: EASE.silk }, '-=0.6')
-      .from('.hero-ctas', { y: 20, opacity: 0, duration: 0.8, ease: EASE.spring }, '-=0.5')
-      .from('.product-window', { y: 80, opacity: 0, scale: 0.95, duration: 1.2, ease: EASE.liquid }, '-=0.5')
-      .from('.liquid-blob', { scale: 0, opacity: 0, duration: 1.5, stagger: 0.2, ease: EASE.elastic }, '-=1')
-  }
-
-  /* Scroll Animations */
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const animDuration = prefersReducedMotion ? 0.01 : undefined
-
-  gsap.utils.toArray('[data-animate="fade-up"]').forEach((el: any) => {
-    gsap.from(el, {
-      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
-      y: 40, opacity: 0, duration: animDuration || 0.9,
-      delay: parseFloat(el.dataset.delay || 0), ease: EASE.liquid
-    })
-  })
-
-  /* Trust Marquee */
-  const trustTrack = document.querySelector('.trust-logo-track')
-  if (trustTrack) {
-    trustTrack.addEventListener('mouseenter', () => {
-      (trustTrack as any).style.animationPlayState = 'paused'
-    })
-    trustTrack.addEventListener('mouseleave', () => {
-      (trustTrack as any).style.animationPlayState = 'running'
-    })
-  }
 }
