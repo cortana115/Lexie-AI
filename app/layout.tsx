@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: '400',
 })
 
 export const metadata: Metadata = {
